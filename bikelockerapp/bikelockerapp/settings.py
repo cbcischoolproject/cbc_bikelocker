@@ -99,10 +99,10 @@ WSGI_APPLICATION = 'bikelockerapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bike_locker_db',
-        'USER': 'bike_locker_db',
-        'PASSWORD': 'bike_locker_db',
-        'HOST': 'bike-locker-app.cjjtwspalno1.us-east-2.rds.amazonaws.com',
+        'NAME': 'bike_locker_db_app',
+        'USER': 'bike_locker_db_app',
+        'PASSWORD': 'bike_locker_db_app',
+        'HOST': 'bike-locker-db-app.cjjtwspalno1.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
