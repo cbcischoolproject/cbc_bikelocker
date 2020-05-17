@@ -1,0 +1,219 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% extends "admin/base_site.html" %}
+<div class="container">
+
+    {% load i18n admin_urls static %}
+    { block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} delete-confirmation
+{% block breadcrumbs %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+
+  <button class="navbar-toggler" type="buton" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav" style="margin-left: 3%">
+
+      <a class="nav-item nav-link active" href="/admin/database">
+          <li class="nav-item active">Home <span class="sr-only">(current)</span></a>
+    </li>
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Renewals
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="send_email">Send Renewals</a>
+      <a class="dropdown-item" href="renewals">Renewals</a>
+        </div>
+      </li>
+      <li class="nav-item">
+          <a class="nav-item nav-link" href="customer_upload">Data</a>
+          </li>
+       <li class="nav-item">
+           <a class="nav-item nav-link" href="{% url 'admin:password_change' %}">Change Password</a>
+               <li class="nav-item">
+        <a class="nav-item nav-link" href="{% url 'admin:logout' %}?next=/admin">Logout</a>
+               </li>
+
+    </div>
+  </div>
+</nav>
+{% endblock %}
+    {% block content %}
+    {% if user.is_authenticated %}
+
+    <div class="row p-3 justify-content-md-center">
+
+
+        <!--    Reset Renewals-->
+    <div class="shadow p-3 mb-5 mr-2 bg-white rounded col-sm-3" class="rounded"
+        <a href="../database/location_renewals"><div align="center"><a>
+                <a href=""> <i class="fa fa-undo fa-5x" aria-hidden="true"></i></a>
+
+                </i>
+
+        <p>
+                      <h1>
+                         Reset Renewals
+                      </h1>
+        </p>
+                  </div>
+            <div>
+                At time to start updating customer information for renewals, this feature functions as a method to change
+                customer's status' from "Active" to "No Reponse." This feature will only affect customers who are up for renewal!
+            </div>
+
+            <br>
+                <form method="POST" action="">{% csrf_token %}
+                    <input type="submit" name="list" value="Reset Renewals"/>
+                </form>
+        </table>
+    </div>
+
+        <div class="shadow p-3 mb-5 mr-2 bg-white rounded col-md-3" class="rounded">
+                   <div align="center"><a href=""><i class="fa fa-close fa-5x" aria-hidden="true"></a></i>
+                                   <p>
+                      <h1>Set Not Renewing to Inactive</h1>
+        </p>
+        </div>
+            <div>
+                If a customer is not renewing, there's no need to keep them logged with their locker once they have collected their equipment. Once a customer has vacated the locker, be sure to set all Customers not Renewing to Inactive.
+            </div>
+            <br>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <input type="submit" name="inactive" value="Set Not Renewing to Inactive"/>
+            </form>
+        </table>
+            </div>
+
+        <div class="shadow p-3 mb-5 mr-2 bg-white rounded col-md-3" class="rounded">
+                   <div align="center"><a href=""><i class="fa fa-trash fa-5x" aria-hidden="true"></i></a>
+                                   <p>
+                      <h1>Purge Inactive Lockers</h1>
+        </p>
+        </div>
+            <div>
+                Once a Customer is Inactive, it's time to Purge Inactive Lockers. This will remove the relationship between the Customer and Locker and free up space in the database.
+            </div>
+            <br>
+            <div>
+                <form method="POST" action="">{% csrf_token %}
+                    <input type="submit" name="purge" value="Purge Inactive Lockers""/>
+                </form>
+            </table>
+        </div>
+    </div>
+
+    <div class="shadow p-3 mb-5 bg-white rounded col-md-12" class="rounded">
+        <table class="table table-bordered table-fixed table-sm">
+            <thead>
+            <tr><h1>Renewal Summary</h1>
+                <th scope="col" style="width: 9.09%">Location</th>
+                <th scope="col" style="width: 9.09%"># of Lockers</th>
+                <th scope="col" style="width: 9.09%"># of Occupants</th>
+                <th scope="col" style="width: 9.09%"># Renewing</th>
+                <th scope="col" style="width: 9.09%"># Not Renewing</th>
+                <th scope="col" style="width: 9.09%"># Waiting For Reponse</th>
+                <th scope="col" style="width: 9.09%">% Responded</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>{% for item in all_stations %}
+                <td> {{ item.location_name }}</td>
+                <td>{{ item.location_capacity }}</td>
+                <td>{{ item.get_location_occ }}</td>
+                <td>{{ item.get_renewal_count }}</td>
+                <td>{{ item.get_not_renewed_count }}</td>
+                <td>{{ item.get_not_responded }}</td>
+                <td>{{ item.get_renewal_percentage }}</td>
+
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><strong>Totals</strong></td>
+                <td>{{ total_lockers }}</td>
+                <td>{{ total_occupied }}</td>
+                <td>{{ locker_renewal_count_total }}</td>
+                <td>{{ locker_not_renewal_count_total }}</td>
+                <td>{{ not_responded_count_total }}</td>
+                <td>{{ total_percentage_responded }}</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+<!--    Reset Renewals-->
+    <div class="shadow p-3 mb-5 bg-white rounded col-md-12" class="rounded">
+        <table class="table table-bordered table-fixed table-sm">
+
+
+        <h1 class="page-header">Customer Responses <a href="customer">
+            <i class="fa fa-edit"
+            aria-hidden="true"
+               style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
+            <div>
+                Based on customer responses from survey, set Customers to their appropriate statuses.
+            </div>
+            <br>
+            <p><form method="GET" action="">
+    <select name="featured">
+
+
+        <option value="{{ item.location_name }}" />All</option>
+                        {% for item in all_stations %}
+        <option value="{{ item.location_name }}" />{{ item.location_name }}</option>
+                                    {% endfor %}
+    </select>
+
+    <input type="submit" value="Filter" />
+        </form></p>
+    <div class="col-md-12">
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <table class="table table-striped">
+                <tr>
+                    <th>Customer</th>
+                    <th>Location</th>
+                    <th>Renewing</th>
+                    <th>Not Renewing</th>
+                </tr>
+                {% if all_cust_lockers %}
+                {% for item in all_cust_lockers %}
+                <tr id="loop">
+                    <td>{{ item }}</td>
+                    <td>{{ item.locker_id.location_id.location_name }}</td>
+                    <td><input type="checkbox" value='{{item.cust_id.pk}}'
+                     name='for_action' id='for_action' ></td>
+                     <td><input type="checkbox" value='{{item.cust_id.pk}}'
+                     name='for_action2' id='for_action2' ></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td>All customers have responded</td>
+                </tr>
+                {% endif %}
+            </table>
+            <input type="submit" value="Save" name="save">
+        </form>
+
+
+    </div>
+
+            </table>
+
+    {% endif %}
+
+{% endblock %}
+
+
+

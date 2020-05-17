@@ -1,0 +1,326 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% extends "admin/base_site.html" %}
+{% block breadcrumbs %}
+<head>
+
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+
+  <button class="navbar-toggler" type="buton" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav" style="margin-left: 3%">
+
+      <a class="nav-item nav-link active" href="/admin/database">
+          <li class="nav-item active">Home <span class="sr-only">(current)</span></a>
+    </li>
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Renewals
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="send_email">Send Renewals</a>
+      <a class="dropdown-item" href="renewals">Renewals</a>
+        </div>
+      </li>
+      <li class="nav-item">
+          <a class="nav-item nav-link" href="customer_upload">Data</a>
+          </li>
+       <li class="nav-item">
+           <a class="nav-item nav-link" href="{% url 'admin:password_change' %}">Change Password</a>
+               <li class="nav-item">
+        <a class="nav-item nav-link" href="{% url 'admin:logout' %}?next=/admin">Logout</a>
+               </li>
+
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block content %}
+{% block userlinks %}
+{% if user.is_active and user.is_staff %}
+{% url 'django-admindocs-docroot' as docsroot %}
+{% endif %}
+{% if user.has_usable_password %}
+{% endif %}
+{% endblock %}
+{% if user.is_authenticated %}
+
+<div id="content">
+        <!-- Add User -->
+        <div class="row">
+            <div class="p-1 event-panel">
+                <input class="btn col-md-12" type="submit" onclick="window.location.href = 'inquiry/add/'" ;
+                       value="Add User"/>
+                <p></p>
+                <div class="shadow p-3 mb-5 bg-white rounded" class="rounded">
+                    <table class="table">
+
+                        <!-- Locations Navigation -->
+                        <tr>
+                            <a href="location/"><h1>Locations</h1></a>
+                                <!-- List locations -->
+                        <tr><td><a href="?location=">All</a></td></tr>
+                                {% for item in all_stations %}
+                        <form method="GET" action="">
+                        <tr class="">
+
+                            <td><a href="?location={{ item.location_name }}">{{ item.location_name }}</a></td>
+                            {% endfor %}
+                        </tr>
+                        </tbody>
+                        </form>
+                    </table>
+                </div>
+            </div>
+
+            <tr class="container">
+
+                <!-- Current Members -->
+                <div class="shadow p-3 mb-5 bg-white rounded col-md-9" class="rounded">
+                    <table class="table table-bordered table-fixed">
+                        <thead>
+                        <!-- Search form -->
+                        <div class="pull-right"><form method="GET" action="">
+                        <div class="input-group md-form form-sm form-1 pl-0">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search text-white"
+                                aria-hidden="true"></i></span>
+                          </div>
+                              <div class="col-xs-3">
+                          <input class="form-control my-0 py-1" type="search" placeholder="Search Customer" name="customer">
+                        </div>
+                        </div>
+                        </form>
+                            </div>
+                        <br>
+
+
+
+                        <tr><h1>Awaiting Renewal <a href="send_email"><i
+                                class="fa fa-envelope" aria-hidden="true"
+                                style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
+
+                            <th scope="col" style="width: 9.09%">First</th>
+                            <th scope="col" style="width: 9.09%">Last</th>
+                            <th scope="col" style="width: 9.09%">Address</th>
+                            <th scope="col" style="width: 9.09%">City</th>
+                            <th scope="col" style="width: 9.09%">State</th>
+                            <th scope="col" style="width: 9.09%">Zip</th>
+                            <th scope="col" style="width: 9.09%">E-mail</th>
+                            <th scope="col" style="width: 9.09%">Cell #1</th>
+                            <th scope="col" style="width: 9.09%">Status</th>
+                            <th scope="col" style="width: 9.09%">Renewal</th>
+                            <th scope="col" style="width: 9.09%">Action</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if locker_renewals %}
+                        {% for item in all_cust_lockers %}
+                        {% if item.is_past_due %}
+                        <tr>
+                            <td>{{ item.cust_id.cust_f_name }}</td>
+                            <td>{{ item.cust_id.cust_l_name }}</td>
+                            <td>{{ item.cust_id.cust_address }}</td>
+                            <td>{{ item.cust_id.cust_city }}</td>
+                            <td>{{ item.cust_id.cust_state }}</td>
+                            <td>{{ item.cust_id.cust_zip }}</td>
+                            <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
+                            <td>{{ item.cust_id.phone_number }}</td>
+                            <td>{{ item.locker_id.locker_status_id.locker_status_name }}</td>
+                            <td>{{ item.location_renewal.date }}</a></td>
+                            <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
+                                <a href="cust_locker/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
+                            </td>
+
+
+                        </tr>
+
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                                   <tr>
+                <td colspan="100%">
+                    <em>There are currently no members up for renewal.</em>
+                </td>
+            </tr>
+                        </tbody>
+                        {% endif %}
+
+
+                        <table class="table table-bordered table-fixed">
+                            <thead>
+                            <tr><h1>Waitlist <a href="inquiry/add/"><i class="fa fa-plus" aria-hidden="true"
+                                                                        style=" vertical-align: middle; font-size: 1rem;"></i></a>
+                            </h1>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Zip</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Cell #1</th>
+                                <th scope="col">Desired Locations</th>
+                                <th scope="col">Inquiry Date</th>
+                                <th scope="col" style="width: 9.09%">Action</th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if all_inquiries %}
+                            {% for item in all_inquiries %}
+                            {% if item %}
+                            <tr>
+                                <td>{{ item.cust_id.cust_f_name }}</td>
+                                <td>{{ item.cust_id.cust_l_name }}</td>
+                                <td>{{ item.cust_id.cust_address }}</td>
+                                <td>{{ item.cust_id.cust_city }}</td>
+                                <td>{{ item.cust_id.cust_state }}</td>
+                                <td>{{ item.cust_id.cust_zip }}</td>
+                                <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
+                                <td>{{ item.cust_id.phone_number }}</td>
+                                <td>{% for item in item.locations.all %}
+                                    <div>{{ item }}</div>
+                                    {% endfor %}
+                                </td>
+                                <td>{{ item.inquiry_date }}</td>
+                                <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
+                                    <a href="inquiry/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
+                                </td>
+
+
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+            <tr>
+                <td colspan="100%">
+                    <em>There are currently no customers on the waitlist.</em>
+                </td>
+            </tr>                            </tbody>
+                            {% endif %}
+                        </table>
+
+                        <table class="table table-bordered table-fixed">
+                            <thead>
+                            <tr><h1>Maintenances <a href="maintenance/add/"> <i class="fa fa-plus" aria-hidden="true"></i></a></h1>
+                                <th scope="col">Location</th>
+                                <th scope="col">Maintenance Type</th>
+                                <th scope="col">Maintenance Scope</th>
+                                <th scope="col">Maintenance Description</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if all_maintenance %}
+                            {% for item in all_maintenance %}
+                            {% if item %}
+                            <tr>
+                                <td>{{ item.location_id.location_name }}</td>
+                                <td>{{ item.main_type_id.main_type_name }}</td>
+                                <td>{{ item.maintenance_scope }}</td>
+                                <td>{{ item.maintenance_description }}</td>
+                                <td>{{ item.start_date}}</td>
+                                <td>{{ item.end_date }} </td>
+                                <td>{{ item.main_status_id.main_status_name }}</td>
+                                <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
+                                    <a href="maintenance/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
+                                </td>
+                                
+                            {% else %}
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                                <td>-</td>
+                                <td><a href="{{ item.get_admin_url }}">N/A</a></td>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                <td colspan="100%">
+                    <em>There are currently no maintenance requests.</em>
+                </td>
+            </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+
+                                               <table class="table table-bordered table-fixed">
+                            <thead>
+                            <tr><h1>Current Members <a href="cust_locker/add/"><i class="fa fa-plus" aria-hidden="true"
+                                                                                  style=" vertical-align: middle; font-size: 1rem;"></i></a>
+                            </h1>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Zip</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Cell #1</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Locker Location</th>
+                                <th scope="col">Locker</th>
+
+                                <th scope="col" style="width: 9.09%">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if all_cust_lockers %}
+                            {% for item in all_cust_lockers %}
+
+                            <tr>
+                                <td>{{ item.cust_id.cust_f_name }}</a></td>
+                                <td>{{ item.cust_id.cust_l_name }}</a></td>
+                                <td>{{ item.cust_id.cust_address }}</a></td>
+                                <td>{{ item.cust_id.cust_city }}</a></td>
+                                <td>{{ item.cust_id.cust_state }}</a></td>
+                                <td>{{ item.cust_id.cust_zip }}</a></td>
+                                <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
+                                <td>{{ item.cust_id.phone_number }}</td>
+                                <td>{{ item.locker_id.locker_status_id.locker_status_name }}</td>
+                                <td><a href="{{ item.get_admin_url }}">{{ item.locker_id.location_id.location_name }}</a>
+                                </td>
+                                <td><a href="{{ item.get_admin_url }}">#{{ item.locker_id.locker_name }}</a>
+
+                                <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
+                                    <a href="cust_locker/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+
+                            {% endfor %}
+                            {% else %}
+                                        <tr>
+                <td colspan="100%">
+                    <em>There are currently no customers listed at this location.</em>
+                </td>
+            </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+
+{% else %}
+<p>Please <a href="{% url 'admin:login' %}">Log In!</a></p>
+{% endif %}
+{% endblock %}
+
+

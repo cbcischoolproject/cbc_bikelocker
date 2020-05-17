@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{% extends "admin/base_site.html" %}
+    {% load static %}
+{% block breadcrumbs %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+
+  <button class="navbar-toggler" type="buton" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav" style="margin-left: 3%">
+
+      <a class="nav-item nav-link active" href="/admin/database">
+          <li class="nav-item active">Home <span class="sr-only">(current)</span></a>
+    </li>
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Renewals
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="../send_email">Send Renewals</a>
+      <a class="dropdown-item" href="../renewals">Renewals</a>
+        </div>
+      </li>
+      <li class="nav-item">
+          <a class="nav-item nav-link" href="../customer_upload">Data</a>
+          </li>
+       <li class="nav-item">
+           <a class="nav-item nav-link" href="{% url 'admin:password_change' %}">Change Password</a>
+               <li class="nav-item">
+        <a class="nav-item nav-link" href="{% url 'admin:logout' %}?next=/admin">Logout</a>
+               </li>
+
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block content %}
+
+<tr class="container">
+    <div class="row p-3 justify-content-md-center">
+
+    <!-- Current Members -->
+    <div class="shadow p-3 mb-5 bg-white rounded col-md-9" class="rounded">
+        {% if messages %}
+        {% for message in messages %}
+        <div>
+            <strong>
+                {{message|safe}}
+            </strong>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1>Import Data</h1>
+        <p>This is the tool we built to import CBC BLM Customer Data. In order for the data scraper to work, it is essential that the steps are followed when uploading user data:</p>
+        <h2>Format</h2>
+        <ol>
+
+            <img src="{% static 'admin/upload_example.png' %}" height="200rem">
+        </ol>
+          <h2>Steps</h2>
+        <ol>
+
+            <li>Download Google Sheets as a CSV file.</li>
+            <li>Inspect document with Excel.</li>
+            <li>Change date format of column N to match double-digit date format (<em>dd-mm-yy</em>).</li>
+            <li>Add the locker location name <strong>exactly</strong> as viewed on the database panel to column P.</li>
+        </ol>
+        <br>
+        <div>
+            <form method="post" enctype="multipart/form-data">
+        </div>
+        {% csrf_token %}
+        <div><label><strong>Upload a file:</strong></label>
+            <input type="file" name="file">
+            <div class="text-sm-left">
+                <strong>Note:</strong> <em>Only accepts .csv files!</em>
+            </div>
+            <br>
+            <button class="button" type="submit">Upload</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    </div>
+</tr>
+{% endblock %}
