@@ -1,6 +1,3 @@
-from django import forms
-from django.contrib import messages
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -53,7 +50,6 @@ class Location(models.Model):
             return 0
 
     def get_renewal_percentage(self):
-
         location = Cust_Locker.objects.filter(locker_id__location_id=self.pk)
         if location:
             location_not_responded = Cust_Locker.objects.filter(locker_id__location_id=self.pk).filter(

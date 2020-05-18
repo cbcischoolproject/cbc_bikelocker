@@ -19,7 +19,6 @@ def index(request):
     all_station = Location.objects.all()
     all_customer = Customer.objects.all()
     all_cust_locker = Cust_Locker.objects.all()
-
     all_maintenance = Maintenance.objects.all()
 
     # Checking to see if user input in search field "contains" query
