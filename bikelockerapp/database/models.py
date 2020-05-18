@@ -202,7 +202,7 @@ class Customer(models.Model):
     status = models.ForeignKey(Status, on_delete=models.CASCADE, default=1)
 
     def not_responded(self):
-        if self.status == Status.objects.get(pk=3):
+        if self.status == Status.objects.get(pk=2):
             return True
 
     def phone_number(self):
@@ -339,13 +339,18 @@ def create_cust_locker(sender, instance, created, **kwargs):
         inquiry = Inquiry.objects.get(cust_id=instance.cust_id)
         inquiry.delete()
         locker_leased = Locker_Status.objects.get(locker_status_name='Leased')
-
+        print("locker Status Correct:", locker_leased.pk)
+        print("no PK", locker_leased)
         locker = Locker.objects.get(locker_id=instance.locker_id.pk)
-        locker.locker_status.locker_status_id = 3
+        print("Locker:", locker)
+        print("Pre-SaveLocker status:", locker.locker_status_id.locker_status_name)
+        print("Pre-Save Locker Status ID:", locker.locker_status_id.locker_status_id)
+        locker.locker_status_id.locker_status_id = Locker_Status.objects.get(locker_status_name='Leased').pk
         locker.save()
+        print("Post save locker status:", locker.locker_status_id.locker_status_name)
+        print("POST-Save Locker Status ID:", locker.locker_status_id.locker_status_id)
     except:
         inquiry = None
-
 
 signals.post_save.connect(receiver=create_cust_locker, sender=Cust_Locker)
 

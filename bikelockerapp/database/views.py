@@ -207,7 +207,7 @@ def send_email(request):
         for customer in active_lockers:
             if customer.location_renewal:
                 if date.today() > customer.location_renewal.date:
-                    customer.contacted = "No"
+                    customer.contacted = "No Contact"
                     customer.save()
                 else:
                     pass
@@ -228,7 +228,7 @@ def send_email(request):
     contains_lr_under_2_weeks = False
     for locker_renewals in all_cust_locker:
         if locker_renewals.location_renewal:
-            if date.today() > locker_renewals.location_renewal.date and date.today() - timedelta(14) < locker_renewals.location_renewal.date and locker_renewals.contacted == "No":
+            if date.today() > locker_renewals.location_renewal.date and date.today() - timedelta(14) < locker_renewals.location_renewal.date and locker_renewals.contacted == "No Contact":
                 contains_lr_under_2_weeks = True
         else:
             pass
@@ -237,7 +237,7 @@ def send_email(request):
     contains_lr_over_2_weeks = False
     for locker_renewals in all_cust_locker:
         if locker_renewals.location_renewal:
-            if date.today() - timedelta(14) > locker_renewals.location_renewal.date and (locker_renewals.contacted == "No" or locker_renewals.contacted == "Initial Contact"):
+            if date.today() - timedelta(14) > locker_renewals.location_renewal.date and (locker_renewals.contacted == "No Contact" or locker_renewals.contacted == "Initial Contact"):
                 contains_lr_over_2_weeks = True
         else:
             pass
