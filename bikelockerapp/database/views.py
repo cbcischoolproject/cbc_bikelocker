@@ -323,9 +323,15 @@ def renewals(request):
     list_of_id_for_action2 = request.POST.getlist('for_action2')
     list_of_obj = Customer.objects.filter(cust_id__in=list_of_id_for_action)
     list_of_obj_not_renewing = Customer.objects.filter(cust_id__in=list_of_id_for_action2)
+
+    # PK for 'Renewed' Status
     renewing_status = Status.objects.get(pk=1)
-    not_renewing_status = Status.objects.get(pk=2)
-    not_responded_status = Status.objects.get(pk=3)
+
+    # PK for 'Not Renewing' Status
+    not_renewing_status = Status.objects.get(pk=3)
+
+    # PK for 'Not Responded' Status
+    not_responded_status = Status.objects.get(pk=2)
     if 'save' in request.POST:
         if list_of_obj:
             list_of_obj.update(status=renewing_status)
