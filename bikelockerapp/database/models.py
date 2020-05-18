@@ -310,7 +310,7 @@ class Cust_Locker(models.Model):
 
     @property
     def not_contacted(self):
-        if self.contacted == "No":
+        if self.contacted == "No Contact":
             return True
         else:
             return False
@@ -345,7 +345,7 @@ def create_cust_locker(sender, instance, created, **kwargs):
         print("Locker:", locker)
         print("Pre-SaveLocker status:", locker.locker_status_id.locker_status_name)
         print("Pre-Save Locker Status ID:", locker.locker_status_id.locker_status_id)
-        locker.locker_status_id.locker_status_id = Locker_Status.objects.get(locker_status_name='Leased').pk
+        locker.locker_status_id.locker_status_id.locker_status_id = locker_leased
         locker.save()
         print("Post save locker status:", locker.locker_status_id.locker_status_name)
         print("POST-Save Locker Status ID:", locker.locker_status_id.locker_status_id)
