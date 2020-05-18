@@ -1,0 +1,590 @@
+.site-btn {
+	display: inline-block;
+	border: none;
+	font-size: 14px;
+	font-weight: 500;
+	min-width: 195px;
+	padding: 23px 20px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	background: #37B04A;
+	color: #fff;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+}
+
+.site-btn:hover {
+	color: #fff;
+}
+
+.site-btn.sb-c2 {
+	background:#0a183d;
+	padding: 23px 20px;
+}
+
+* {
+	box-sizing: border-box;
+   }
+
+   *:before,
+   *:after {
+	box-sizing: border-box;
+   }
+
+   html,
+   body {
+	height: 100%;
+   }
+
+   .main-container {
+	min-height: 100%;
+	margin-bottom: -330px;
+	position: relative;
+   }
+
+   
+
+/* header section */ 
+
+.header-section {
+	padding-left: 55px;
+	padding-right: 72px;
+	background-color: white;
+	margin-bottom: -100px;
+}
+
+.site-logo {
+	display: inline-block;
+	padding: 0;
+	padding: 44px 15px;
+}
+
+.header-right {
+	float: right;
+	padding: 44px 0;
+	margin-left: 130px;
+}
+
+.header-right .hr-btn {
+	display: inline-block;
+	color: #979aa5;
+}
+
+.header-right .user-panel {
+	display: inline-block;
+}
+
+.header-right .user-panel a {
+	font-size: 16px;
+	color: #ffffff;
+	margin: 0 10px;
+}
+
+.header-right .user-panel .register {
+	color: #fc0254;
+	margin-right: 0;
+}
+
+.header-right span {
+	color: #fff;
+	display: inline-block;
+	padding-left: 9px;
+}
+
+.main-menu {
+	list-style: none;
+	float: right;
+}
+
+.main-menu li {
+	display: inline-block;
+	position: relative;
+}
+
+.main-menu li a {
+	display: block;
+	font-size: 16px;
+	color: #ffffff;
+	padding: 44px 10px;
+	margin-left: 60px;
+}
+
+.main-menu li a:hover {
+	color: #fc0254;
+}
+
+.main-menu li:first-child a {
+	margin-left: 0;
+}
+
+.main-menu li:hover .sub-menu {
+	visibility: visible;
+	opacity: 1;
+	margin-top: 0;
+}
+
+.main-menu .sub-menu {
+	position: absolute;
+	list-style: none;
+	width: 220px;
+	left: 60px;
+	top: 100%;
+	padding: 20px 0;
+	visibility: hidden;
+	opacity: 0;
+	margin-top: 50px;
+	background: #fff;
+	z-index: 99;
+	-webkit-transition: all 0.4s;
+	transition: all 0.4s;
+	-webkit-box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+	box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+}
+
+.main-menu .sub-menu li {
+	display: block;
+}
+
+.main-menu .sub-menu li a {
+	display: block;
+	color: #000;
+	margin-left: 0;
+	padding: 5px 20px;
+}
+
+.main-menu .sub-menu li a:hover {
+	color: #fc0254;
+}
+
+.slicknav_menu {
+	display: none;
+}
+
+.icon-bar {
+    width: 90px; /* Set a specific width */
+    background-color: #555; /* Dark-grey background */
+  }
+
+  .site-logo {
+	display: inline-block;
+	padding: 0;
+	padding: 2px 5px;
+	padding-top: 50px;
+}
+
+header {
+	background-color:lightseagreen;
+}
+
+/* hero section */
+
+.hero-section2 {
+	overflow: hidden;
+} 
+
+.hs-item2 {
+	height: 724px;
+	padding-bottom: 90px;
+	padding-top: 300px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	background-color: white;
+}
+
+.hs-text h2{
+	font-size: 70px;
+	margin-bottom: 25px;
+	line-height: 0.9;
+	 color: white; 
+}
+
+.hs-text h4, .hs-text p {
+	color: white;
+	opacity: 0.8;
+}
+
+.hs-text p {
+	margin-bottom: 50px;
+}
+
+
+
+
+/* ----------------
+Intro section
+ -------------------*/
+
+.intro-section p {
+	margin-bottom: 35px;
+	padding-top: 10px;
+}
+
+.section-title2{
+	padding-top: 40px;
+}
+
+.section-title2 h2 {
+
+	font-size:50px;
+	margin-bottom:25px;
+	line-height: 1;
+	color: #0a183d;
+
+}
+
+.steps-text h4 {
+	color: forestgreen;
+}
+
+
+.contact-us{
+	position: relative;
+	left:-18px;
+	bottom: 20px;
+}
+
+
+/* how */ 
+
+.how-section {
+	background-color: #006882;
+}
+
+.how-item .hi-icon {
+	position: relative;
+	width: 57px;
+	height: 57px;
+	border-radius: 50%;
+	background: #1c294a;
+	margin-bottom: 25px;
+}
+
+.how-item .hi-icon img {
+	position: absolute;
+	right: -8px;
+	bottom: 0;
+}
+
+.how-item h4 {
+	margin-bottom: 25px;
+}
+
+.how-item p {
+	font-weight: 400;
+	opacity: 0.6;
+}
+
+/* ----------------
+Concept section
+ -------------------*/
+
+.concept-section p {
+	padding-top: 5px;
+}
+
+.concept-item {
+	text-align: center;
+	padding-top: 35px;
+}
+
+.concept-item img {
+	border-radius: 40px;
+	margin-bottom: 15px;
+}
+
+
+#mapid { 
+	height: 500px;
+	width:100%; 
+	position: relative;
+}
+
+div#custform {
+	margin-top: -30px;
+	list-style-type: none;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+div#custform button {
+	border: none;
+	font-size: 14px;
+	font-weight: 500;
+	min-width: 90px;
+	padding: 8px 5px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	background:  #37B04A;
+	color: #fff;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+}
+
+
+.filterBtn {
+		position: relative;
+		left: 185px;
+		bottom: 20px;
+}
+
+.filter-btn{
+	display: inline-block;
+	border: none;
+	font-size: 14px;
+	font-weight: 500;
+	min-width: 90px;
+	padding: 8px 5px;
+	margin-top: 50px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	background: #37B04A;
+	color: #fff;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+
+}
+
+#mapFormSection {
+	color:  #1c294a;
+}
+
+#mapFormSection input {
+	border-radius: 7px;
+	border-width: 1.5px;
+}
+
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+  height: 215px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+/* Responsive layout - makes the four columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+/* --------------------
+Subscription section
+ -----------------------*/
+
+ .subscription-section {
+	background: lightgray;
+	padding: 40px;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.sub-text {
+	padding-right: 15px;
+}
+
+.sub-text h2 {
+	color: #0a183d;
+	font-size: 60px;
+	margin-bottom: 20px;
+	font-weight: 500;
+}
+
+.sub-text h3 {
+	color: #fc0254;
+	margin-bottom: 30px;
+	font-weight: 500;
+}
+
+.sub-text p {
+	color: black;
+	font-weight: 400;
+	opacity: 0.6;
+	margin-bottom: 40px;
+}
+
+a.lease-now {
+	background: #37B04A;
+	color: white;
+	display: inline-block;
+	border: none;
+	font-size: 14px;
+	font-weight: 500;
+	min-width: 195px;
+	padding: 23px 20px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+	margin-top: -200px;
+	margin-left:15px;
+}
+
+
+.Mainsite-btn {
+	
+		display: inline-block;
+		border: none;
+		font-size: 14px;
+		font-weight: 500;
+		min-width: 195px;
+		padding: 23px 20px;
+		border-radius: 50px;
+		text-transform: uppercase;
+		background: white;
+		color:  #1c294a;
+		line-height: normal;
+		cursor: pointer;
+		text-align: center;
+	
+	
+}
+
+#footer {
+	height: 230px;
+	position: relative;
+	background-color: #006882;
+	color: blAck;
+	list-style: none;
+	padding: 10px;
+	margin-top: -230px;
+}
+
+.clearfooter {
+height: 230px;
+clear: both;
+}
+
+section#steps-section {
+	background-color: lightgray;
+	width: 100%;
+	padding-bottom: 20px;
+	margin-top: 30px;
+}
+
+#main-photo {
+	top: -3px;
+}
+
+
+.hr-img {
+	position: absolute;
+}
+
+ul{
+	list-style-type: none;
+	padding-left: 0;
+}
+
+#footer {
+	padding: 30px;
+}
+
+div#sound-transit {
+	background-color:#37B04A;
+	color: #1c294a;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 100px;
+	margin-bottom: 20px;
+}
+
+
+div#sound-transit a {
+	font-weight: bold;
+	color: #1c294a;
+	text-transform: uppercase;
+}
+
+div#sound-transit p {
+	font-size: large;
+	color: #1c294a;
+}
+
+@media (max-width:1000px){
+    .hr-img {
+        display:none;
+    }
+}
+
+div#locker-list-body {
+	background-color: white;
+	color: grey;
+	padding: 5px;
+}
+
+input, option {
+	margin: 10px;
+}
+
+div#landing-text {
+	background-color: #006882;
+	padding: 30px;
+	border-radius: 10px;
+}
