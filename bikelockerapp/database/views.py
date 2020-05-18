@@ -226,14 +226,14 @@ def send_email(request):
 
     # Rendering boolean for New Locker Renewal Requests
     contains_lr_under_2_weeks = False
-    print(contains_lr_under_2_weeks)
     for locker_renewals in all_cust_locker:
         if locker_renewals.location_renewal:
             if date.today() > locker_renewals.location_renewal.date and date.today() - timedelta(14) < locker_renewals.location_renewal.date and locker_renewals.contacted == "No Contact":
                 contains_lr_under_2_weeks = True
+                print(contains_lr_under_2_weeks)
         else:
             pass
-    print(contains_lr_under_2_weeks)
+
 
     # Rendering boolean for Past due (over 2 week) Locker Renewal Requests
     contains_lr_over_2_weeks = False
