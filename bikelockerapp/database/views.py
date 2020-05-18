@@ -117,7 +117,6 @@ def customer_upload(request):
                 locker_id = not_created_locker,
                 locker_id__locker_status_id = Locker_Status.objects.get(locker_status_name='Leased'),
                 contract_date = datetime.strptime(contract_date, "%m/%d/%Y").date(),
-                renew_date = datetime.now(),
                 description = column[11]
             )
     context = {}
