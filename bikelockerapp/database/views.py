@@ -69,7 +69,7 @@ def index(request):
 
     # Rendering boolean for Locker Renewals
     contains_locker_renewals = False
-    for locker_renewals in all_cust_locker:
+    for locker_renewals in all_renewals:
         if locker_renewals.location_renewal:
             if date.today() > locker_renewals.location_renewal.date:
                 contains_locker_renewals = True
@@ -77,7 +77,7 @@ def index(request):
             pass
 
     if contains_locker_renewals == False:
-        locker_renewals = None
+        all_renewals = None
 
     if(type(all_inquiry)) != set and filter_by_location == False:
         all_inquiry = all_inquiry[:5]
