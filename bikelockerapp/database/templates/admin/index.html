@@ -276,8 +276,6 @@
                                 <th scope="col">First</th>
                                 <th scope="col">Last</th>
                                 <th scope="col">Address</th>
-                                <th scope="col">City</th>
-                                <th scope="col">State</th>
                                 <th scope="col">Zip</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Cell #1</th>
@@ -295,7 +293,9 @@
                             <tr>
                                 <td>{{ item.cust_id.cust_f_name }}</a></td>
                                 <td>{{ item.cust_id.cust_l_name }}</a></td>
-                                <td>{{ item.cust_id.full_address }}</a></td>
+                                <td>{{ item.cust_id.cust_address }},
+                                {{ item.cust_id.cust_city }},
+                                {{ item.cust_id.cust_state }}</a></td>
                                 <td>{{ item.cust_id.cust_zip }}</a></td>
                                 <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
                                 <td>{{ item.cust_id.phone_number }}</td>

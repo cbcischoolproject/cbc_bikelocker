@@ -222,18 +222,6 @@ class Customer(models.Model):
         else:
             return 'N/A'
 
-    def full_address(self):
-        if self.cust_address and self.city and self.cust_state:
-            return '{}, {}, {}'.format(self.cust_address, self.city, self.cust_state)
-        elif self.cust_address and self.city:
-            return '{},{}'.format(self.cust_address, self.city)
-        elif self.cust_address and self.cust_state:
-            return '{},{}'.format(self.cust_address, self.cust_state)
-        elif self.cust_address:
-            return '{}'.format(self.cust_address)
-        else:
-            return ""
-
     def phone_number2(self):
         if self.cust_phone2:
             first = self.cust_phone2[0:3]
