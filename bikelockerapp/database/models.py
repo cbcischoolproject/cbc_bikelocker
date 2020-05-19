@@ -410,7 +410,7 @@ class Inquiry(models.Model):
     class Meta:
         verbose_name = "Inquiry"
         verbose_name_plural = "Inquiries"
-        ordering = [-'inquiry_date']
+        ordering = ['-inquiry_date']
 
     def get_admin_url(self):
         content_type = ContentType.objects.get_for_model(self.__class__)
