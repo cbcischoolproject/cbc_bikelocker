@@ -5,8 +5,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
 from django.contrib import messages
 from .models import Customer, Inquiry, Location, Cust_Locker, Maintenance, Locker, Waitlist, Locker_Log, Status, \
-    Locker_Status, Renewal_Form
-from .forms import CustomerForm, SendEmailForm, SendEmailFormAfter2Weeks, RenewalsForm
+    Locker_Status
+from .forms import CustomerForm, SendEmailForm, SendEmailFormAfter2Weeks
 from datetime import datetime, date, timedelta
 from django.conf import settings
 

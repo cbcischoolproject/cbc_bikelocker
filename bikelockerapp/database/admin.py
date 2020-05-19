@@ -18,6 +18,10 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ('cust_f_name', 'cust_l_name', 'cust_email')
     list_filter = ('status',)
 
+class LockerAdmin(admin.ModelAdmin):
+    list_display = ('locker_name', 'location_id', 'locker_status_id')
+    list_filter = ('location_id', 'locker_status_id',)
+
 admin.site.register(Location, LocationA)
 admin.site.register(Waitlist)
 admin.site.register(Locker_Status)
@@ -35,8 +39,6 @@ admin.site.register(Cust_Locker)
 admin.site.register(Renewal)
 admin.site.register(Renewal_Response)
 admin.site.register(Inquiry)
-admin.site.register(Locker_Log)
-admin.site.register(Renewal_Form)
 admin.site.register(Staff)
 
 

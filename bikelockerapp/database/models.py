@@ -388,32 +388,6 @@ class Renewal(models.Model):
     response_3 = models.ForeignKey(Renewal_Response, on_delete=models.CASCADE, related_name='response3', blank=True)
 
 
-class Renewal_Form(models.Model):
-    renewal_form_id = models.AutoField(primary_key=True)
-    email = models.EmailField('E-mail', default='')
-    name_lease = models.CharField('Name On Lease', max_length=50, default='')
-    mailing_address = models.CharField('Current Mailing Address', max_length=300, default='')
-    phone = models.CharField('Phone', max_length=50, default='')
-    location = models.CharField('Location', max_length=50, default='')
-    locker_number = models.CharField('Locker Number', max_length=50, default='')
-
-    LOCKER_USE = (
-        ("0-1", "0-1"),
-        ("1-2", "1-2"),
-        ("2-3", "2-3"),
-        ("3+", "3+"),
-    )
-    locker_usage = models.CharField('Locker Usage', choices=LOCKER_USE, max_length=50)
-
-    TRUE_FALSE_CHOICES = (
-        ('Yes', 'Yes'),
-        ('No', 'No')
-    )
-
-    renewal_decision = models.CharField('Renewal Decision', choices=TRUE_FALSE_CHOICES, max_length=50)
-    feedback = models.TextField('Feedback', max_length=5000, default='')
-
-
 class Inquiry(models.Model):
     inquiry_id = models.AutoField(primary_key=True)
     cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
