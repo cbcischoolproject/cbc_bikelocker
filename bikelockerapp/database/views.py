@@ -50,21 +50,17 @@ def index(request):
         inquiry = []
         renewals = []
         if all_cust_locker.filter(cust_id__cust_f_name__contains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
+            print(customers)
             customers += all_cust_locker.filter(cust_id__cust_f_name__contains=customer_contains_query)
             customers += all_cust_locker.filter(cust_id__cust_l_name__contains=customer_contains_query)
             customers += all_cust_locker.filter(cust_id__cust_email__contains=customer_contains_query)
             renewals += all_renewals.filter(cust_id__cust_f_name__contains=customer_contains_query)
             renewals += all_renewals.filter(cust_id__cust_l_name__contains=customer_contains_query)
             renewals += all_renewals.filter(cust_id__cust_email__contains=customer_contains_query)
-        else:
-            renewals = []
-            customers = []
         if all_inquiry.filter(cust_id__cust_f_name__contains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
             inquiry += all_inquiry.filter(cust_id__cust_f_name__contains=customer_contains_query)
             inquiry += all_inquiry.filter(cust_id__cust_l_name__contains=customer_contains_query)
             inquiry += all_inquiry.filter(cust_id__cust_email__contains=customer_contains_query)
-        else:
-            inquiry = []
 
         if all_cust_locker.filter(cust_id__cust_f_name__contains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__contains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__contains=customer_contains_query):
             all_cust_locker = set(customers)
@@ -84,10 +80,10 @@ def index(request):
     if contains_locker_renewals == False:
         all_renewals = None
 
-    if(type(all_inquiry)) != set and filter_by_location == False and filter_by_name == False:
+    if(type(all_inquiry)) != set and filter_by_location == False:
         all_inquiry = all_inquiry[:5]
 
-    if(type(all_cust_locker)) != set and filter_by_location == False and filter_by_name == False:
+    if(type(all_cust_locker)) != set and filter_by_location == False:
         all_cust_locker = all_cust_locker[:5]
 
     # Returning values to to render onto template
