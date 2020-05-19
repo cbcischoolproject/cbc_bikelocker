@@ -27,7 +27,7 @@ class Location(models.Model):
 
     def get_renewal_count(self):
         location = Cust_Locker.objects.filter(locker_id__location_id=self.pk).filter(
-            cust_id__status_id__status_name__iexact="Renewed")
+            cust_id__status_id__status_name__iexact="Active")
         if location:
             return len(location)
         else:
@@ -206,7 +206,7 @@ class Customer(models.Model):
     cust_city = models.CharField('City', max_length=50)
     cust_state = models.CharField('State', max_length=50)
     cust_zip = models.CharField('Zip Code', max_length=10)
-    renewed = Status.objects.filter(status_name__iexact="Renewed")
+    renewed = Status.objects.filter(status_name__iexact="Active")
     status = models.ForeignKey(Status, on_delete=models.CASCADE, default=1)
 
     def not_responded(self):
