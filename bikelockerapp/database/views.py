@@ -79,10 +79,10 @@ def index(request):
     if contains_locker_renewals == False:
         all_renewals = None
 
-    if(type(all_inquiry)) != set and filter_by_location == False:
+    if(type(all_inquiry)) != set and filter_by_location == False and filter_by_name == False:
         all_inquiry = all_inquiry[:5]
 
-    if(type(all_cust_locker)) != set and filter_by_location == False:
+    if(type(all_cust_locker)) != set and filter_by_location == False and filter_by_name == False:
         all_cust_locker = all_cust_locker[:5]
 
     # Returning values to to render onto template
