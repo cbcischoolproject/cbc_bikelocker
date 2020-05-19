@@ -56,10 +56,15 @@ def index(request):
             renewals += all_renewals.filter(cust_id__cust_f_name__icontains=customer_contains_query)
             renewals += all_renewals.filter(cust_id__cust_l_name__icontains=customer_contains_query)
             renewals += all_renewals.filter(cust_id__cust_email__icontains=customer_contains_query)
+        else:
+            renewals = []
+            customers = []
         if all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
             inquiry += all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query)
             inquiry += all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query)
             inquiry += all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query)
+        else:
+            inquiry = []
 
         if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
             all_cust_locker = set(customers)
@@ -81,13 +86,9 @@ def index(request):
 
     if(type(all_inquiry)) != set and filter_by_location == False and filter_by_name == False:
         all_inquiry = all_inquiry[:5]
-    else:
-        all_inquiry = []
 
     if(type(all_cust_locker)) != set and filter_by_location == False and filter_by_name == False:
         all_cust_locker = all_cust_locker[:5]
-    else:
-        all_cust_locker = []
 
     # Returning values to to render onto template
     render_dicts = {'render_cust': render_cust, 'all_renewals': all_renewals, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
