@@ -413,6 +413,11 @@ class Inquiry(models.Model):
     def __str__(self):
         return str(self.cust_id) + " (" + str(self.inquiry_date) + ")"
 
+    def my_property(self):
+        return str(self.cust_id) + " (" + str(self.inquiry_date) + ")"
+
+    inquiry_full = my_property()
+
 
 class Waitlist(models.Model):
     waitlist_id = models.AutoField(primary_key=True)
