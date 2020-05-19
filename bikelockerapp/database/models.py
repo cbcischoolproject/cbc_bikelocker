@@ -105,7 +105,7 @@ class Locker(models.Model):
     locker_name_full = property(my_property)
 
     class Meta:
-        ordering = ['location_id',]
+        ordering = ['location_id', '-locker_name']
 
 
 class Key_Status(models.Model):
@@ -421,18 +421,3 @@ class TimeStamp(models.Model):
 
     class Meta:
         abstract = True
-
-# Unimplemented
-class Locker_Log(TimeStamp):
-    locker_log_id = models.AutoField(primary_key=True)
-    staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
-    action = models.CharField('Action', max_length=500, blank=True)
-    action_done = models.CharField('Action Done', max_length=500, blank=True)
-    next_step = models.CharField('Action', max_length=500, blank=True)
-    resolved = models.BooleanField('Resolved', default=False)
-
-    class Meta:
-        verbose_name = "Locker Log"
-        verbose_name_plural = "Locker Logs"
