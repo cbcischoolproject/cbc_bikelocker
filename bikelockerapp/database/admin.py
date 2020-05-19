@@ -16,8 +16,8 @@ class Location_Renewals_A(admin.ModelAdmin):
     list_filter = ('location', 'date',)
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('cust_f_name', 'cust_l_name', 'cust_email', 'status')
-    list_filter = ('status',)
+    list_display = ('cust_f_name', 'cust_l_name', 'cust_email', 'cust_address', 'cust_state', 'cust_zip', 'cust_phone', 'status')
+    list_filter = ('status', 'cust_zip')
 
 class LockerAdmin(admin.ModelAdmin):
     list_display = ('locker_name_full', 'locker_status_id')
