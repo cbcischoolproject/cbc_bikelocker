@@ -302,7 +302,7 @@
                                 <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
                                 <td>{{ item.cust_id.phone_number }}</td>
                                 <td>{{ item.locker_id.locker_status_id.locker_status_name }}</td>
-                                <td><a href="{{ item.get_admin_url }}">{{ item.locker_id.location_id.location_name }}</a>
+                                <td style="word-break: break-all;"><a href="{{ item.get_admin_url }}">{{ item.locker_id.location_id.location_name }}</a>
                                 </td>
                                 <td><a href="{{ item.get_admin_url }}">#{{ item.locker_id.locker_name }}</a>
 
