@@ -29,7 +29,7 @@ class Cust_LockerAdmin(admin.ModelAdmin):
 
 class InquiryAdmin(admin.ModelAdmin):
     list_display = ('customer', 'inquiry_date', 'locations')
-    list_filter = ('inquiry_date', 'cust_id', 'locations')
+    list_filter = ('locations', 'inquiry_date')
 
 admin.site.register(Location, LocationA)
 admin.site.register(Waitlist)
