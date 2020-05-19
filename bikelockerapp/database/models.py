@@ -342,7 +342,7 @@ class Cust_Locker(models.Model):
             return False
 
     class Meta:
-        ordering = ['locker_id__location_id__location_name', 'cust_id__cust_l_name']
+        ordering = ['locker_id__location_id__location_name', 'locker_id__locker_name']
         verbose_name = "Customer Locker"
         verbose_name_plural = "Customer Lockers"
 
