@@ -353,6 +353,11 @@ class Cust_Locker(models.Model):
     def __str__(self):
         return str(self.cust_id) + " " + str(self.locker_id.location_id) + " #" + self.locker_id.locker_name
 
+    def cust_email(self):
+        return self.cust_id.cust_email
+
+    locker_cust_email = property(cust_email)
+
 
 def create_cust_locker(sender, instance, created, **kwargs):
     try:
