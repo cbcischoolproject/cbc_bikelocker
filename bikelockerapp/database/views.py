@@ -49,8 +49,6 @@ def index(request):
             inquiry += all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query)
         all_cust_locker = set(customers)
         all_inquiry = set(inquiry)
-        print(all_inquiry)
-        print(all_cust_locker)
 
     # Rendering boolean for Locker Renewals
     contains_locker_renewals = False
@@ -155,8 +153,6 @@ def customer_waitlist(request):
 def send_email(request):
     x = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_under_2_weeks_past_due and obj.not_contacted)]
     yy = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_2_weeks_past_due and (obj.not_contacted or obj.contacted_once))]
-    print(x)
-    print(yy)
     all_stations = Location.objects.all()
     all_cust_locker = Cust_Locker.objects.all()
     if request.method == 'GET':
@@ -165,7 +161,6 @@ def send_email(request):
     if request.method == 'POST' and 'form1' in request.POST:
         form = SendEmailForm(request.POST or None)
         if form.is_valid():
-            print('test')
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
             from_email = settings.EMAIL_HOST_USER
