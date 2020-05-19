@@ -400,3 +400,19 @@ def log(request):
     all_logs = Locker_Log.objects.all()
     return render(request, 'log.html',
                   {'all_logs': all_logs})
+
+def renewals_form(request):
+    submitted = False
+    if request.method == 'POST':
+        print('did')
+        form = RenewalsForm(request.POST)
+        if form.is_valid():
+            product = form.save()
+            return HttpResponseRedirect('/admin')
+        else:
+            print(form.errors)
+    else:
+        form = RenewalsForm()
+        if request.method == 'GET':
+            submitted = True
+    return render(request, 'renewals_form.html', {'form': form})

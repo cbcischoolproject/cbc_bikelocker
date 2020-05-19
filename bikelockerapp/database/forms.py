@@ -1,5 +1,5 @@
 from django import forms
-from database.models import Customer, Location, Status, Cust_Locker
+from database.models import Customer, Location, Status, Renewal_Form, Cust_Locker
 from datetime import date, datetime
 
 
@@ -24,6 +24,11 @@ class RenewalStatusForm(forms.ModelForm):
         model = Status
         fields = ['status_name']
         widgets = {'locker_status_name': forms.RadioSelect}
+
+class RenewalsForm(forms.ModelForm):
+    class Meta:
+        model = Renewal_Form
+        fields = ['email', 'name_lease', 'mailing_address', 'phone', 'location', 'locker_number', 'locker_usage', 'renewal_decision', 'feedback']
 
 class DateInput(forms.DateInput):
     input_type = 'date'
