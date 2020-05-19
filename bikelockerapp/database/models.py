@@ -102,7 +102,7 @@ class Locker(models.Model):
     def my_property(self):
         return self.location_id.location_name + " #" + self.locker_name
 
-    locker_name = property(my_property)
+    locker_name_full = property(my_property)
 
     class Meta:
         ordering = ['location_id']
