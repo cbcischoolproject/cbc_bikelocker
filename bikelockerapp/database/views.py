@@ -147,10 +147,9 @@ def customer_waitlist(request):
 @staff_member_required
 def send_email(request):
     x = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_under_2_weeks_past_due and obj.not_contacted)]
-    yy = [obj for obj in Cust_Locker.objects.all() if obj.is_2_weeks_past_due and (obj.not_contacted)]
-    y = [obj.cust_id.cust_email for obj in yy if obj.contacted_once]
-    for yy in y:
-        print(yy)
+    yy = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_2_weeks_past_due and (obj.not_contacted or obj.contacted_once))]
+    print(x)
+    print(yy)
     all_stations = Location.objects.all()
     all_cust_locker = Cust_Locker.objects.all()
     if request.method == 'GET':
@@ -186,11 +185,10 @@ def send_email(request):
             message = form2.cleaned_data['message']
             from_email = settings.EMAIL_HOST_USER
             try:
-                send_mail(subject, message, from_email, y, fail_silently=False)
+                send_mail(subject, message, from_email, yy, fail_silently=False)
                 customers = [obj for obj in Cust_Locker.objects.all() if
-                             (obj.is_2_weeks_past_due and obj.not_contacted)]
-                customers_filtered = [obj for obj in customers if obj.contacted_once]
-                for customer in customers_filtered:
+                             (obj.is_2_weeks_past_due and (obj.not_contacted or obj.contacted_once))]
+                for customer in customers:
                     print(customer)
                     print(customer.contacted)
                     customer.contacted = 'Second Contact'
@@ -258,7 +256,7 @@ def send_email(request):
                    'form': form,
                    'form2': form2,
                    'emails': x,
-                   '2_weeks': y,
+                   '2_weeks': yy,
                    'all_cust_lockers': all_cust_locker,
                    'locker_renewals': contains_locker_renewals,
                    'lr_over_2': contains_lr_over_2_weeks,

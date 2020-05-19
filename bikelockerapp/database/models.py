@@ -301,6 +301,17 @@ class Cust_Locker(models.Model):
             return False
 
     @property
+    def is_under_2_weeks_not_contacted(self):
+        try:
+            if self.location_renewal.date:
+                if (date.today() > self.location_renewal.date and date.today() - timedelta(
+                        14) < self.location_renewal.date):
+                            if (date.today() - timedelta(14) > self.location_renewal.date):
+                                return True
+        except:
+            return False
+
+    @property
     def is_2_weeks_past_due(self):
         try:
             if (date.today() - timedelta(14) > self.location_renewal.date):
@@ -315,6 +326,7 @@ class Cust_Locker(models.Model):
         else:
             return False
 
+    @property
     def contacted_once(self):
         if self.contacted == "Initial Contact":
             return True
