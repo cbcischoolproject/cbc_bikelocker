@@ -229,8 +229,10 @@ class Customer(models.Model):
             return '{},{}'.format(self.cust_address, self.city)
         elif self.cust_address and self.cust_state:
             return '{},{}'.format(self.cust_address, self.cust_state)
-        else:
+        elif self.cust_address:
             return '{}'.format(self.cust_address)
+        else:
+            return ""
 
     def phone_number2(self):
         if self.cust_phone2:
