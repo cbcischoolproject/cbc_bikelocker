@@ -99,7 +99,10 @@ class Locker(models.Model):
     def __str__(self):
         return self.location_id.location_name + " #" + self.locker_name
 
-    locker_name = property(__str__())
+    def my_property(self):
+        return self.location_id.location_name + " #" + self.locker_name
+
+    locker_name = property(my_property)
 
     class Meta:
         ordering = ['location_id']
