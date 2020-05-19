@@ -322,7 +322,7 @@ def renewals(request):
             try:
                 bug = Cust_Locker.objects.filter(locker_id__location_id=locker.pk)
                 type(bug)
-                status = Status.objects.get(status_name='Renewed')
+                status = Status.objects.get(status_name='Active')
                 locker_renewal_count_total += len(Cust_Locker.objects.filter(locker_id__location_id=locker.pk).filter(cust_id__status_id__status_name=str(status)))
             except Cust_Locker.DoesNotExist:
                 pass
