@@ -402,7 +402,7 @@ def renewals(request):
         inactive_lockers = Cust_Locker.objects.filter(cust_id__status_id__status_name__iexact="Inactive")
         for single_locker in inactive_lockers:
             locker_available = Locker_Status.objects.get(locker_status_name='Available')
-            inactive = Locker.objects.filter(locker_id = single_locker.pk)
+            inactive = Locker.objects.filter(locker_id = single_locker.locker_id)
             inactive.update(locker_status_id=locker_available)
             single_locker.delete()
         return HttpResponseRedirect("renewals")
