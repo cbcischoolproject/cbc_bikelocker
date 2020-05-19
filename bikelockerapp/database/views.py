@@ -58,11 +58,8 @@ def index(request):
                 contains_locker_renewals = True
         else:
             pass
-
-        all_inquiry = all_inquiry.first(10)
-        all_cust_locker = all_cust_locker.first(10)
     # Returning values to to render onto template
-    render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
+    render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry[:5], 'all_cust_lockers': all_cust_locker[:5], 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
     return render(request, 'admin/index.html', render_dicts)
 
 @staff_member_required
