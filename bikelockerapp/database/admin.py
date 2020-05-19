@@ -14,7 +14,7 @@ class Location_Renewals_A(admin.ModelAdmin):
     list_display = ('location', 'date')
     list_filter = ('location', 'date',)
 
-class Customer_A:
+class CustomerAdmin:
     list_filter = ('status')
 
 admin.site.register(Location, LocationA)
@@ -25,7 +25,7 @@ admin.site.register(Locker)
 admin.site.register(Key_Status)
 admin.site.register(Key)
 admin.site.register(Maintenance_Type)
-admin.site.register(Customer)
+admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Status)
 admin.site.register(Cust_Status)
 admin.site.register(Maintenance_Status)
