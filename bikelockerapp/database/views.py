@@ -60,7 +60,7 @@ def index(request):
             pass
 
     # Returning values to to render onto template
-    render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
+    render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker[:10], 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
     return render(request, 'admin/index.html', render_dicts)
 
 @staff_member_required
@@ -400,18 +400,17 @@ def renewals(request):
 # #     return render(request, 'log.html',
 # #                   {'all_logs': all_logs})
 
-def renewals_form(request):
-    submitted = False
-    if request.method == 'POST':
-        print('did')
-        form = RenewalsForm(request.POST)
-        if form.is_valid():
-            product = form.save()
-            return HttpResponseRedirect('/admin')
-        else:
-            print(form.errors)
-    else:
-        form = RenewalsForm()
-        if request.method == 'GET':
-            submitted = True
-    return render(request, 'renewals_form.html', {'form': form})
+# def renewals_form(request):
+#     submitted = False
+#     if request.method == 'POST':
+#         form = RenewalsForm(request.POST)
+#         if form.is_valid():
+#             product = form.save()
+#             return HttpResponseRedirect('/admin')
+#         else:
+#             print(form.errors)
+#     else:
+#         form = RenewalsForm()
+#         if request.method == 'GET':
+#             submitted = True
+#     return render(request, 'renewals_form.html', {'form': form})
