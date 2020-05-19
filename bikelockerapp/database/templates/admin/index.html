@@ -163,7 +163,7 @@
                         {% else %}
                                    <tr>
                 <td colspan="100%">
-                    <em>There are currently no members up for renewal.</em>
+                    <em>There are currently no members up for renewal matching those terms.</em>
                 </td>
             </tr>
                         </tbody>
@@ -204,12 +204,15 @@
 
 
                             </tr>
+                             <td colspan="100%">
+                                 <em>Search or <a href="/admin/database/inquiry/">View All Wailist</a>.</em>
+                </td>
                             {% endif %}
                             {% endfor %}
                             {% else %}
             <tr>
                 <td colspan="100%">
-                    <em>There are currently no customers on the waitlist.</em>
+                    <em>There are currently no customers on the waitlist matching those terms.</em>
                 </td>
             </tr>                            </tbody>
                             {% endif %}
@@ -261,7 +264,7 @@
                             {% else %}
                             <tr>
                 <td colspan="100%">
-                    <em>There are currently no maintenance requests.</em>
+                    <em>There are currently no maintenance requests matching those terms.</em>
                 </td>
             </tr>
                             {% endif %}
