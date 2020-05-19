@@ -5,30 +5,45 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% extends "admin/login.html" %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base_site.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/login.css' %}">
 {% block extrahead %}
-<!--<style>-->
-<!--    body.login {-->
-<!--        background: #fff;-->
-<!--    }-->
+<style>
+    body.login {
+        background: #fff;
+    }
 
-<!--    .login #container {-->
-<!--        background: #fff;-->
-<!--        border: 1px solid #eaeaea;-->
-<!--        border-radius: 4px;-->
-<!--        overflow: hidden;-->
-<!--        width: 28em;-->
-<!--        min-width: 300px;-->
-<!--        margin: 100px auto;-->
-<!--    }-->
+    .login #container {
+        background: #fff;
+        border: 1px solid #eaeaea;
+        border-radius: 4px;
+        overflow: hidden;
+        width: 28em;
+        min-width: 300px;
+        margin: 100px auto;
+    }
 
-<!--    .login #header {-->
-<!--        height: auto;-->
-<!--        padding: 15px 16px;-->
-<!--        justify-content: center;-->
-<!--        background: #eee;-->
-<!--    }-->
-<!--</style>-->
+    .login #header {
+        height: auto;
+        padding: 15px 16px;
+        justify-content: center;
+        background: #eee;
+    }
+
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: var(--primary-color-faded);
+  }
+  .button.default, input[type=submit].default, .submit-row input.default {
+    background: var(--primary-color);
+  }
+  .button:active, input[type=submit]:active, input[type=button]:active, .button:focus, input[type=submit]:focus, input[type=button]:focus, .button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: var(--primary-color-faded);
+    opacity: 0.8;
+  }
+  .button.default:active, input[type=submit].default:active, .button.default:focus, input[type=submit].default:focus, .button.default:hover, input[type=submit].default:hover {
+    background: var(--primary-color);
+    opacity: 0.8;
+  }
+</style>
 {% endblock %}
 
 {% block branding %}
