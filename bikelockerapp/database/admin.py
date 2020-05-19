@@ -28,7 +28,7 @@ class Cust_LockerAdmin(admin.ModelAdmin):
     list_filter = ('locker_id__location_id', 'contract_date')
 
 class InquiryAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'inquiry_date')
+    list_display = ('customer', 'inquiry_date', 'locations')
     list_filter = ('inquiry_date', 'cust_id', 'locations')
 
 admin.site.register(Location, LocationA)
