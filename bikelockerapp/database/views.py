@@ -49,23 +49,23 @@ def index(request):
         customers = []
         inquiry = []
         renewals = []
-        if all_cust_locker.filter(cust_id__cust_f_name__contains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
+        if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
             filter_cust_locker_by_name = True
-            customers += all_cust_locker.filter(cust_id__cust_f_name__contains=customer_contains_query)
-            customers += all_cust_locker.filter(cust_id__cust_l_name__contains=customer_contains_query)
-            customers += all_cust_locker.filter(cust_id__cust_email__contains=customer_contains_query)
-            renewals += all_renewals.filter(cust_id__cust_f_name__contains=customer_contains_query)
-            renewals += all_renewals.filter(cust_id__cust_l_name__contains=customer_contains_query)
-            renewals += all_renewals.filter(cust_id__cust_email__contains=customer_contains_query)
-        if all_inquiry.filter(cust_id__cust_f_name__contains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
+            customers += all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query)
+            customers += all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query)
+            customers += all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query)
+            renewals += all_renewals.filter(cust_id__cust_f_name__icontains=customer_contains_query)
+            renewals += all_renewals.filter(cust_id__cust_l_name__icontains=customer_contains_query)
+            renewals += all_renewals.filter(cust_id__cust_email__icontains=customer_contains_query)
+        if all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
             filter_inquiry_by_name = True
-            inquiry += all_inquiry.filter(cust_id__cust_f_name__contains=customer_contains_query)
-            inquiry += all_inquiry.filter(cust_id__cust_l_name__contains=customer_contains_query)
-            inquiry += all_inquiry.filter(cust_id__cust_email__contains=customer_contains_query)
-        if all_cust_locker.filter(cust_id__cust_f_name__contains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__contains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__contains=customer_contains_query):
+            inquiry += all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query)
+            inquiry += all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query)
+            inquiry += all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query)
+        if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
             all_cust_locker = set(customers)
             all_renewals = set(renewals)
-        if all_inquiry.filter(cust_id__cust_f_name__contains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__contains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__contains=customer_contains_query):
+        if all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
             all_inquiry = set(inquiry)
 
     # Rendering boolean for Locker Renewals
