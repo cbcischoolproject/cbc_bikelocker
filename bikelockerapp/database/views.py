@@ -30,10 +30,12 @@ def index(request):
         render_cust = True
 
     # Filtering customer data (station, locker, inquiry) by location
+    filter_by_location = False
     if location_contains_query != '' and location_contains_query is not None:
         all_cust_locker = all_cust_locker.filter(locker_id__location_id__location_name__contains=location_contains_query)
         all_inquiry = all_inquiry.filter(locations__location_name__contains=location_contains_query)
         all_maintenance = all_maintenance.filter(lockers__location_id__location_name__contains=location_contains_query)
+        filter_by_location = True
 
     # Filtering customer data by customer name
     if customer_contains_query != '' and customer_contains_query is not None:
@@ -62,10 +64,10 @@ def index(request):
         else:
             pass
 
-    if(type(all_cust_locker)) != set:
+    if(type(all_cust_locker)) != set and filter_by_location == False:
         all_cust_locker = all_cust_locker[:5]
 
-    if(type(all_inquiry)) != set:
+    if(type(all_inquiry)) != set and filter_by_location == False:
         all_inquiry = all_inquiry[:5]
     # Returning values to to render onto template
     render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
