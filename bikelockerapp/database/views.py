@@ -44,11 +44,13 @@ def index(request):
             customers += all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query)
             customers += all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query)
         if all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
-            inquiry += all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query)
-            inquiry += all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query)
-            inquiry += all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query)
+            inquiry += all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query)
+            inquiry += all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query)
+            inquiry += all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query)
         all_cust_locker = set(customers)
         all_inquiry = set(inquiry)
+        print(all_inquiry)
+        print(all_cust_locker)
 
     # Rendering boolean for Locker Renewals
     contains_locker_renewals = False

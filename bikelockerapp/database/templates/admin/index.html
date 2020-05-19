@@ -174,7 +174,6 @@
                             </h1>
                                 <th scope="col">First</th>
                                 <th scope="col">Last</th>
-                                <th scope="col">State</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Desired Locations</th>
                                 <th scope="col">Inquiry Date</th>
@@ -190,7 +189,6 @@
                             <tr>
                                 <td>{{ item.cust_id.cust_f_name }}</td>
                                 <td>{{ item.cust_id.cust_l_name }}</td>
-                                <td>{{ item.cust_id.cust_state }}</td>
                                 <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
                                 <td>{% for item in item.locations.all %}
                                     <div>{{ item }}</div>
