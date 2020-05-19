@@ -21,7 +21,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 class InquiryAdmin(admin.ModelAdmin):
     list_display = ('inquiry_full', 'inquiry_date')
-    list_filter = ('inquiry_date', 'cust_id', 'locations')
+    list_filter = ('status',)
 
 class LockerAdmin(admin.ModelAdmin):
     list_display = ('locker_name_full', 'locker_status_id')
