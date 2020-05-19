@@ -371,7 +371,7 @@ def create_cust_locker(sender, instance, created, **kwargs):
         print("Pre-SaveLocker status:", locker.locker_status_id.locker_status_name)
         print("Pre-Save Locker Status ID:", locker.locker_status_id.locker_status_id)
         locker.locker_status_id.locker_status_id.locker_status_id = locker_leased
-        locker.save()
+        locker.update(locker_status_id=locker_leased)
         print("Post save locker status:", locker.locker_status_id.locker_status_name)
         print("POST-Save Locker Status ID:", locker.locker_status_id.locker_status_id)
     except:
