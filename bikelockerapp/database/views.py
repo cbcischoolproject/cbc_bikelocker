@@ -71,8 +71,15 @@ def index(request):
         else:
             pass
 
+    if contains_locker_renewals == False:
+        locker_renewals = None
+
     if(type(all_inquiry)) != set and filter_by_location == False:
         all_inquiry = all_inquiry[:5]
+
+    if(type(all_cust_locker)) != set and filter_by_location == False:
+        all_cust_locker = all_cust_locker[:5]
+
     # Returning values to to render onto template
     render_dicts = {'render_cust': render_cust, 'all_renewals': all_renewals, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
     return render(request, 'admin/index.html', render_dicts)
