@@ -47,7 +47,7 @@ admin.site.register(Maintenance)
 admin.site.register(Cust_Locker, Cust_LockerAdmin)
 admin.site.register(Renewal)
 admin.site.register(Renewal_Response)
-admin.site.register(Inquiry, InquiryAdmin)
+admin.site.register(Inquiry)
 admin.site.register(Staff)
 
 
