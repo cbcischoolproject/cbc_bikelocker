@@ -47,7 +47,10 @@ def index(request):
             inquiry += all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query)
             inquiry += all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query)
             inquiry += all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query)
+
+    if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
         all_cust_locker = set(customers)
+    if all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
         all_inquiry = set(inquiry)
 
     # Rendering boolean for Locker Renewals
@@ -58,6 +61,12 @@ def index(request):
                 contains_locker_renewals = True
         else:
             pass
+
+        if(type(all_cust_locker)) != set:
+            all_cust_locker = all_cust_locker[:5]
+
+        if(type(all_inquiry)) != set:
+            all_inquiry = all_inquiry[:5]
     # Returning values to to render onto template
     render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry[:5], 'all_cust_lockers': all_cust_locker[:5], 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
     return render(request, 'admin/index.html', render_dicts)
