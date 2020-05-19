@@ -24,7 +24,7 @@ class LockerAdmin(admin.ModelAdmin):
     list_filter = ('locker_status_id', 'location_id',)
 
 class Cust_LockerAdmin(admin.ModelAdmin):
-    list_display = ('cust_id', 'cust_id_cust_email', 'cust_id_cust_address' 'locker_id', 'contract_date')
+    list_display = ('cust_id', 'cust_id.cust_email', 'cust_id.cust_address' 'locker_id', 'contract_date')
     list_filter = ('locker_id__location_id', 'contract_date')
 
 class InquiryAdmin(admin.ModelAdmin):
