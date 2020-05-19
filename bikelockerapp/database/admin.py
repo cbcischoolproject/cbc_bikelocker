@@ -24,7 +24,7 @@ class LockerAdmin(admin.ModelAdmin):
 
 class Cust_LockerAdmin(admin.ModelAdmin):
     list_display = ('cust_id', 'locker_id', 'contract_date', 'location_renewal')
-    list_filter = ('locker_id', 'contract_date')
+    list_filter = ('locker_id.location_id', 'contract_date')
 
 admin.site.register(Location, LocationA)
 admin.site.register(Waitlist)
