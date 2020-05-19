@@ -4,30 +4,37 @@ from django.contrib import admin
 from .models import *
 
 class LocationA(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ('location_name', 'location_zip')
     list_filter = ('location_name', 'location_zip',)
 
 class MaintenanceAdmin(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ('main_type_id', 'location_id', 'maintenance_description', 'start_date', 'end_date')
     list_filter = ('main_type_id', 'location_id')
 
 class Location_Renewals_A(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ('location', 'date')
     list_filter = ('location', 'date',)
 
 class CustomerAdmin(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ('cust_f_name', 'cust_l_name', 'cust_email', 'cust_address', 'cust_city', 'cust_state', 'cust_zip', 'cust_phone', 'status')
     list_filter = ('status', 'cust_city')
 
 class LockerAdmin(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ('locker_name_full', 'locker_status_id')
     list_filter = ('locker_status_id', 'location_id',)
 
 class Cust_LockerAdmin(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ('cust_id', 'locker_cust_email', 'locker_id', 'contract_date')
     list_filter = ('locker_id__location_id', 'contract_date')
 
 class InquiryAdmin(admin.ModelAdmin):
+    list_per_page = 20
     list_display = ('customer', 'inquiry_date')
     list_filter = ('locations', 'inquiry_date')
 
