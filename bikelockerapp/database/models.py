@@ -105,7 +105,7 @@ class Locker(models.Model):
     locker_name_full = property(my_property)
 
     class Meta:
-        ordering = ['location_id', '-locker_name']
+        ordering = ['location_id', 'locker_name']
 
 
 class Key_Status(models.Model):
