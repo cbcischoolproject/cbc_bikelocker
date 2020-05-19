@@ -198,7 +198,7 @@
                                     {% endfor %}
                                 </td>
                                 <td>{{ item.inquiry_date }}</td>
-                                <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
+                                <td><a href="{{ item.get_admin_url }}">c</a>
                                     <a href="inquiry/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
                                 </td>
 
@@ -208,7 +208,7 @@
                             {% endfor %}
                             <thead>
                             <th scope="col" colspan="100%">
-                                 <em>Search or <a href="/admin/database/inquiry/">View All Waitlist</a></em>
+                                 <a href="/admin/database/inquiry/">><i class="fa fa-eye"></i>View All Waitlist</a>
                             </td>
                             </thead>
                             {% else %}
