@@ -28,7 +28,7 @@ class Cust_LockerAdmin(admin.ModelAdmin):
     list_filter = ('locker_id__location_id', 'contract_date')
 
 class InquiryAdmin(admin.ModelAdmin):
-    list_display = ('inquiry_full', 'inquiry_date')
+    list_display = ('waitlist', 'inquiry_date')
     list_filter = ('inquiry_date', 'cust_id', 'locations')
 
 admin.site.register(Location, LocationA)
@@ -47,7 +47,7 @@ admin.site.register(Maintenance, MaintenanceAdmin)
 admin.site.register(Cust_Locker, Cust_LockerAdmin)
 admin.site.register(Renewal)
 admin.site.register(Renewal_Response)
-admin.site.register(Inquiry)
+admin.site.register(Inquiry, InquiryAdmin)
 admin.site.register(Staff)
 
 
