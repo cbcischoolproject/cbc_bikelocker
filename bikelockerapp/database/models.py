@@ -99,6 +99,9 @@ class Locker(models.Model):
     def __str__(self):
         return self.location_id.location_name + " #" + self.locker_name
 
+    class Meta:
+        ordering = ['location_id', 'locker_name']
+
 
 class Key_Status(models.Model):
     key_status_id = models.AutoField(primary_key=True)

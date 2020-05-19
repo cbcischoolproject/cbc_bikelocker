@@ -20,7 +20,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 class LockerAdmin(admin.ModelAdmin):
     list_display = ('locker_name', 'location_id', 'locker_status_id')
-    list_filter = ('location_id', 'locker_status_id',)
+    list_filter = ('locker_status_id', 'location_id',)
 
 admin.site.register(Location, LocationA)
 admin.site.register(Waitlist)
