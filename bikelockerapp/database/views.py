@@ -63,9 +63,6 @@ def index(request):
     render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
     return render(request, 'admin/index.html', render_dicts)
 
-def BootstrapFilterView(request):
-    render(request, "bootstrap_form.html ")
-
 @staff_member_required
 # Customer Upload Data View
 def customer_upload(request):
@@ -396,12 +393,12 @@ def renewals(request):
                    'total_lockers': total_lockers,
                    'total_occupied': total_occupied})
 
-@staff_member_required
-# TBD: DELETE IF UNIMPLEMENTED
-def log(request):
-    all_logs = Locker_Log.objects.all()
-    return render(request, 'log.html',
-                  {'all_logs': all_logs})
+# @staff_member_required
+# # TBD: DELETE IF UNIMPLEMENTED
+# # def log(request):
+# #     all_logs = Locker_Log.objects.all()
+# #     return render(request, 'log.html',
+# #                   {'all_logs': all_logs})
 
 def renewals_form(request):
     submitted = False

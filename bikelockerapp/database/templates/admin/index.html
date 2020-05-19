@@ -26,9 +26,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/admin/database/cust_locker">Occupied Lockers</a>
-            <a class="dropdown-item" href="customer">Customers</a>
-            <a class="dropdown-item" href="locker">Lockers</a>
-            <a class="dropdown-item" href="location_renewals">Location Renewals</a>
+            <a class="dropdown-item" href="/admin/databasecustomer">Customers</a>
+            <a class="dropdown-item" href="/admin/databaselocker">Lockers</a>
+            <a class="dropdown-item" href="/admin/databaselocation_renewals">Location Renewals</a>
         </div>
       </li>
 
@@ -37,12 +37,12 @@
           Renewals
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="send_email">Send Renewals</a>
-      <a class="dropdown-item" href="renewals">Manage Renewals</a>
+        <a class="dropdown-item" href="/admin/database/send_email">Send Renewals</a>
+      <a class="dropdown-item" href="/admin/database/renewals">Manage Renewals</a>
         </div>
       </li>
       <li class="nav-item">
-          <a class="nav-item nav-link" href="customer_upload">Data Tools</a>
+          <a class="nav-item nav-link" href="/admin/database/customer_upload">Data Tools</a>
           </li>
        <li class="nav-item">
            <a class="nav-item nav-link" href="{% url 'admin:password_change' %}">Change Password</a>
