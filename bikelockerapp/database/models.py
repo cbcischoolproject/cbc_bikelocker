@@ -76,6 +76,7 @@ class Location_Renewals(models.Model):
     class Meta:
         verbose_name = "Locker Location Renewal Date"
         verbose_name_plural = "Locker Location Renewal Dates"
+        ordering = ['location']
 
 
 class Locker_Status(models.Model):
