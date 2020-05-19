@@ -38,11 +38,11 @@ def index(request):
     # Filtering customer data by customer name
     if customer_contains_query != '' and customer_contains_query is not None:
         customers = []
-        if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) | all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) | all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
+        if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
             customers += all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query)
             customers += all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query)
             customers += all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query)
-        all_cust_locker = customers
+        all_cust_locker = set(customers)
         all_inquiry = all_inquiry.filter(cust_id__cust_f_name__contains=customer_contains_query)
 
     # Rendering boolean for Locker Renewals
@@ -199,7 +199,6 @@ def send_email(request):
             return HttpResponseRedirect("send_email")
 
     if 'reset contacted' in request.POST:
-        print('tester')
         active_customers = Customer.objects.all().exclude(status_id__status_name__iexact="Inactive").exclude(status__isnull=True).exclude(status_id__status_name__iexact="Not Renewing")
         active_lockers = Cust_Locker.objects.all().filter(cust_id__in=active_customers)
         for customer in active_lockers:
