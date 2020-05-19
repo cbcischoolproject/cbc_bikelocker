@@ -1,4 +1,5 @@
 import csv, io
+import random
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from django.shortcuts import render
@@ -84,6 +85,7 @@ def index(request):
         if not filter_inquiry_by_name and filter_cust_locker_by_name:
             all_inquiry = []
         else:
+            all_inquiry = sorted(all_inquiry, key=lambda x: random.random())
             all_inquiry = all_inquiry[:5]
 
     if(type(all_cust_locker)) != set and filter_by_location == False:
@@ -91,6 +93,7 @@ def index(request):
             all_cust_locker = []
             contains_locker_renewals = False
         else:
+            all_cust_locker = sorted(all_cust_locker, key=lambda x: random.random())
             all_cust_locker = all_cust_locker[:5]
 
     # Returning values to to render onto template
