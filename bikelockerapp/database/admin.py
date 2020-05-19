@@ -15,7 +15,7 @@ class Location_Renewals_A(admin.ModelAdmin):
     list_filter = ('location', 'date',)
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('cust_f_name', 'cust_l_name', 'cust_email')
+    list_display = ('cust_f_name', 'cust_l_name', 'cust_email', 'status')
     list_filter = ('status',)
 
 class LockerAdmin(admin.ModelAdmin):
@@ -27,7 +27,6 @@ class Cust_LockerAdmin(admin.ModelAdmin):
     list_filter = ('locker_id__location_id', 'contract_date')
 
 admin.site.register(Location, LocationA)
-admin.site.register(Waitlist)
 admin.site.register(Locker_Status)
 admin.site.register(Location_Renewals, Location_Renewals_A)
 admin.site.register(Locker, LockerAdmin)
@@ -43,6 +42,5 @@ admin.site.register(Cust_Locker, Cust_LockerAdmin)
 admin.site.register(Renewal)
 admin.site.register(Renewal_Response)
 admin.site.register(Inquiry)
-admin.site.register(Staff)
 
 
