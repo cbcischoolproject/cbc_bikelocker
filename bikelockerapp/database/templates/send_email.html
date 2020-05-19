@@ -115,8 +115,6 @@
                     <th scope="col" style="width: 9.09%">First</th>
                     <th scope="col" style="width: 9.09%">Last</th>
                     <th scope="col" style="width: 9.09%">Address</th>
-                    <th scope="col" style="width: 9.09%">City</th>
-                    <th scope="col" style="width: 9.09%">State</th>
                     <th scope="col" style="width: 9.09%">Zip</th>
                     <th scope="col" style="width: 9.09%">E-mail</th>
                     <th scope="col" style="width: 9.09%">Cell #1</th>
@@ -132,9 +130,9 @@
                 <tr>
                     <td>{{ item.cust_id.cust_f_name }}</td>
                     <td>{{ item.cust_id.cust_l_name }}</td>
-                    <td>{{ item.cust_id.cust_address }}</td>
-                    <td>{{ item.cust_id.cust_city }}</td>
-                    <td>{{ item.cust_id.cust_state }}</td>
+                    <td>{{ item.cust_id.cust_address }},
+                    {{ item.cust_id.cust_city }},
+                    {{ item.cust_id.cust_state }}</td>
                     <td>{{ item.cust_id.cust_zip }}</td>
                     <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}"
                             target="_blank">{{item.cust_id.cust_email }}</a></td>
