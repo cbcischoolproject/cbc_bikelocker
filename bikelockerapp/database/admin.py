@@ -15,6 +15,7 @@ class Location_Renewals_A(admin.ModelAdmin):
     list_filter = ('location', 'date',)
 
 class CustomerAdmin:
+    list_display = ('cust_f_name', 'cust_l_name', 'cust_email')
     list_filter = ('status')
 
 admin.site.register(Location, LocationA)
