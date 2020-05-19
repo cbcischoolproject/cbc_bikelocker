@@ -55,7 +55,7 @@ class Location(models.Model):
             location_not_responded = Cust_Locker.objects.filter(locker_id__location_id=self.pk).filter(
                 cust_id__status_id__status_name__iexact="Not Responded")
             location_renewed = Cust_Locker.objects.filter(locker_id__location_id=self.pk).filter(
-                cust_id__status_id__status_name__iexact="Renewed")
+                cust_id__status_id__status_name__iexact="Active")
             location_not_renew = Cust_Locker.objects.filter(locker_id__location_id=self.pk).filter(
                 cust_id__status_id__status_name__iexact="Not Renewing")
             if (len(location) > 0):
