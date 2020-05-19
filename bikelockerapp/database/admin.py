@@ -6,18 +6,16 @@ from .models import *
 class LocationA(admin.ModelAdmin):
     list_display = ('location_name', 'location_zip')
     list_filter = ('location_name', 'location_zip',)
-    def update_status(self, request, queryset):
-        queryset.update(status='NEW_STATUS')
-
-    update_status.short_description = "Update status    "
 
 class MaintenanceAdmin(admin.ModelAdmin):
     list_filter = ('main_type_id', 'location_id')
 
-
 class Location_Renewals_A(admin.ModelAdmin):
     list_display = ('location', 'date')
     list_filter = ('location', 'date',)
+
+class Customer_A:
+    list_filter = ('status')
 
 admin.site.register(Location, LocationA)
 admin.site.register(Waitlist)
