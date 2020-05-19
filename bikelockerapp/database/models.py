@@ -100,7 +100,7 @@ class Locker(models.Model):
         return self.location_id.location_name + " #" + self.locker_name
 
     class Meta:
-        ordering = ['location_id', 'locker_name']
+        ordering = ['location_id', int('locker_name')]
 
 
 class Key_Status(models.Model):
