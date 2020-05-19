@@ -137,7 +137,7 @@
                         </thead>
                         <tbody>
                         {% if locker_renewals %}
-                        {% for item in all_cust_lockers %}
+                        {% for item in all_renewals %}
                         {% if item.is_past_due %}
                         <tr>
                             <td>{{ item.cust_id.cust_f_name }}</td>

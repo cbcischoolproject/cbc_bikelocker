@@ -19,6 +19,7 @@ def index(request):
     all_station = Location.objects.all()
     all_customer = Customer.objects.all()
     all_cust_locker = Cust_Locker.objects.all()
+    all_renewals = Cust_Locker.objects.all()
     all_maintenance = Maintenance.objects.all()
 
     # Checking to see if user input in search field "contains" query
@@ -33,6 +34,7 @@ def index(request):
     filter_by_location = False
     if location_contains_query != '' and location_contains_query is not None:
         all_cust_locker = all_cust_locker.filter(locker_id__location_id__location_name__contains=location_contains_query)
+        all_renewals = all_cust_locker.filter(locker_id__location_id__location_name__contains=location_contains_query)
         all_inquiry = all_inquiry.filter(locations__location_name__contains=location_contains_query)
         all_maintenance = all_maintenance.filter(lockers__location_id__location_name__contains=location_contains_query)
         filter_by_location = True
@@ -41,10 +43,14 @@ def index(request):
     if customer_contains_query != '' and customer_contains_query is not None:
         customers = []
         inquiry = []
+        renewals = []
         if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
             customers += all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query)
             customers += all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query)
             customers += all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query)
+            renewals += all_renewals.filter(cust_id__cust_f_name__icontains=customer_contains_query)
+            renewals += all_renewals.filter(cust_id__cust_l_name__icontains=customer_contains_query)
+            renewals += all_renewals.filter(cust_id__cust_email__icontains=customer_contains_query)
         if all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
             inquiry += all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query)
             inquiry += all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query)
@@ -52,6 +58,7 @@ def index(request):
 
         if all_cust_locker.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_cust_locker.filter(cust_id__cust_email__icontains=customer_contains_query):
             all_cust_locker = set(customers)
+            all_renewals = set(renewals)
         if all_inquiry.filter(cust_id__cust_f_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_l_name__icontains=customer_contains_query) or all_inquiry.filter(cust_id__cust_email__icontains=customer_contains_query):
             all_inquiry = set(inquiry)
 
@@ -64,13 +71,10 @@ def index(request):
         else:
             pass
 
-    if(type(all_cust_locker)) != set and filter_by_location == False:
-        all_cust_locker = all_cust_locker[:5]
-
     if(type(all_inquiry)) != set and filter_by_location == False:
         all_inquiry = all_inquiry[:5]
     # Returning values to to render onto template
-    render_dicts = {'render_cust': render_cust, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
+    render_dicts = {'render_cust': render_cust, 'all_renewals': all_renewals, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
     return render(request, 'admin/index.html', render_dicts)
 
 @staff_member_required
