@@ -41,11 +41,11 @@ def index(request):
         all_inquiry = all_inquiry.filter(locations__location_name__contains=location_contains_query)
         all_maintenance = all_maintenance.filter(lockers__location_id__location_name__contains=location_contains_query)
         filter_by_location = True
-        not_queried_data = True
 
     # Filtering customer data by customer name
+    filter_by_name = False
     if customer_contains_query != '' and customer_contains_query is not None:
-        not_queried_data = True
+        filter_by_name = True
         customers = []
         inquiry = []
         renewals = []
@@ -79,17 +79,11 @@ def index(request):
     if contains_locker_renewals == False:
         locker_renewals = None
 
-    if(type(all_inquiry)) != set and filter_by_location == False:
-        if not_queried_data == True:
-            all_inquiry = all_inquiry[:5]
-        else:
-            all_inquiry = []
+    if(type(all_inquiry)) != set and filter_by_location == False and filter_by_name == False:
+        all_inquiry = all_inquiry[:5]
 
-    if(type(all_cust_locker)) != set and filter_by_location == False:
-        if  not_queried_data == True:
-            all_cust_locker = all_cust_locker[:5]
-        else:
-            all_cust_locker = []
+    if(type(all_cust_locker)) != set and filter_by_location == False and filter_by_name == False:
+        all_cust_locker = all_cust_locker[:5]
 
     # Returning values to to render onto template
     render_dicts = {'render_cust': render_cust, 'all_renewals': all_renewals, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
