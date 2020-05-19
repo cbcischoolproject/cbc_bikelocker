@@ -222,8 +222,8 @@ class Customer(models.Model):
         else:
             return 'N/A'
 
-    # def full_address(self):
-    #     return '{}, {}, {}'.format(self.cust_address, self.city, self.cust_state)
+    def full_address(self):
+        return '{}, {}, {}'.format(self.cust_address, self.city, self.cust_state)
 
     def phone_number2(self):
         if self.cust_phone2:
