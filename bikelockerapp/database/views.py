@@ -81,13 +81,13 @@ def index(request):
         all_renewals = None
 
     if(type(all_inquiry)) != set and filter_by_location == False:
-        if filter_inquiry_by_name:
+        if not filter_inquiry_by_name and filter_cust_locker_by_name:
             all_inquiry = []
         else:
             all_inquiry = all_inquiry[:5]
 
     if(type(all_cust_locker)) != set and filter_by_location == False:
-        if filter_cust_locker_by_name:
+        if not filter_cust_locker_by_name and filter_inquiry_by_name:
             all_cust_locker = []
         else:
             all_cust_locker = all_cust_locker[:5]
