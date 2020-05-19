@@ -8,7 +8,7 @@ class LocationA(admin.ModelAdmin):
     list_filter = ('location_name', 'location_zip',)
 
 class MaintenanceAdmin(admin.ModelAdmin):
-    list_display = ('main_type_id', 'location_id', 'description', 'start_date', 'end_date')
+    list_display = ('main_type_id', 'location_id', 'maintenance_description', 'start_date', 'end_date')
     list_filter = ('main_type_id', 'location_id')
 
 class Location_Renewals_A(admin.ModelAdmin):
