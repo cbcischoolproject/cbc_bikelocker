@@ -94,6 +94,7 @@ class Locker(models.Model):
     locker_id = models.AutoField(primary_key=True)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     locker_name = models.CharField('Locker Name', max_length=100)
+    print(type(locker_name))
     locker_status_id = models.ForeignKey(Locker_Status, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
@@ -106,7 +107,6 @@ class Locker(models.Model):
 
     class Meta:
         ordering = ['location_id', 'locker_name']
-
 
 class Key_Status(models.Model):
     key_status_id = models.AutoField(primary_key=True)
