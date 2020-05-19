@@ -19,17 +19,29 @@
       <a class="nav-item nav-link active" href="/admin/database">
           <li class="nav-item active">Home <span class="sr-only">(current)</span></a>
     </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Manage
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="cust_locker">Occupied Lockers</a>
+            <a class="dropdown-item" href="customer">Customers</a>
+            <a class="dropdown-item" href="locker">Lockers</a>
+            <a class="dropdown-item" href="locker">Location Renewals</a>
+        </div>
+      </li>
+
             <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Renewals
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="send_email">Send Renewals</a>
-      <a class="dropdown-item" href="renewals">Renewals</a>
+      <a class="dropdown-item" href="renewals">Manage Renewals</a>
         </div>
       </li>
       <li class="nav-item">
-          <a class="nav-item nav-link" href="customer_upload">Data</a>
+          <a class="nav-item nav-link" href="customer_upload">Data Tools</a>
           </li>
        <li class="nav-item">
            <a class="nav-item nav-link" href="{% url 'admin:password_change' %}">Change Password</a>
