@@ -21,7 +21,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 class InquiryAdmin(admin.ModelAdmin):
     list_display = ('inquiry_full', 'inquiry_date')
-    list_filter = ('status',)
+    list_filter = ('inquiry_date', 'cust_id', 'locations')
 
 class LockerAdmin(admin.ModelAdmin):
     list_display = ('locker_name_full', 'locker_status_id')
@@ -43,11 +43,11 @@ admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Status)
 admin.site.register(Cust_Status)
 admin.site.register(Maintenance_Status)
-admin.site.register(Maintenance, MaintenanceAdmin)
+admin.site.register(Maintenance)
 admin.site.register(Cust_Locker, Cust_LockerAdmin)
 admin.site.register(Renewal)
 admin.site.register(Renewal_Response)
-admin.site.register(Inquiry)
+admin.site.register(Inquiry, InquiryAdmin)
 admin.site.register(Staff)
 
 
