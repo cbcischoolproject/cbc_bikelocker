@@ -83,6 +83,7 @@ def index(request):
     if(type(all_inquiry)) != set and filter_by_location == False:
         if not filter_inquiry_by_name and filter_cust_locker_by_name:
             all_inquiry = []
+            all_renewals = []
         else:
             all_inquiry = all_inquiry[:5]
 
