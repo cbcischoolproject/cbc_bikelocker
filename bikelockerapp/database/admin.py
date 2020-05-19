@@ -22,6 +22,10 @@ class LockerAdmin(admin.ModelAdmin):
     list_display = ('locker_name_full', 'locker_status_id')
     list_filter = ('locker_status_id', 'location_id',)
 
+class Cust_LockerAdmin(admin.ModelAdmin):
+    list_display = ('cust_id', 'locker_id', 'contract_date', 'location_renewal')
+    list_filter = ('locker_id', 'contract_date')
+
 admin.site.register(Location, LocationA)
 admin.site.register(Waitlist)
 admin.site.register(Locker_Status)
