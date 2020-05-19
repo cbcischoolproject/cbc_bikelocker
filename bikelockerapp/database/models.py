@@ -414,9 +414,9 @@ class Inquiry(models.Model):
         return str(self.cust_id) + " (" + str(self.inquiry_date) + ")"
 
     def my_property(self):
-        return str(self.cust_id) + " (" + str(self.inquiry_date) + ")"
+        return str(self.cust_id)
 
-    waitlist = property(my_property)
+    customer = property(my_property)
 
 
 class Waitlist(models.Model):
