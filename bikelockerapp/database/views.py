@@ -19,7 +19,7 @@ def index(request):
     all_station = Location.objects.all()
     all_customer = Customer.objects.all()
     all_cust_locker = Cust_Locker.objects.all()
-    all_renewals = Cust_Locker.objects.all()
+    all_renewals = []
     all_maintenance = Maintenance.objects.all()
 
     # Unqueired Flag
@@ -83,14 +83,12 @@ def index(request):
     if(type(all_inquiry)) != set and filter_by_location == False:
         if not filter_inquiry_by_name and filter_cust_locker_by_name:
             all_inquiry = []
-            all_renewals = []
         else:
             all_inquiry = all_inquiry[:5]
 
     if(type(all_cust_locker)) != set and filter_by_location == False:
         if not filter_cust_locker_by_name and filter_inquiry_by_name:
             all_cust_locker = []
-            all_renewals = []
         else:
             all_cust_locker = all_cust_locker[:5]
 
