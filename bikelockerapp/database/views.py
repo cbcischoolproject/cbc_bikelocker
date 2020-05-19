@@ -85,7 +85,6 @@ def index(request):
         if not filter_inquiry_by_name and filter_cust_locker_by_name:
             all_inquiry = []
         else:
-            all_inquiry = sorted(all_inquiry, key=lambda x: random.random())
             all_inquiry = all_inquiry[:5]
 
     if(type(all_cust_locker)) != set and filter_by_location == False:
@@ -402,7 +401,7 @@ def renewals(request):
         inactive_lockers = Cust_Locker.objects.filter(cust_id__status_id__status_name__iexact="Inactive")
         for single_locker in inactive_lockers:
             locker_available = Locker_Status.objects.get(locker_status_name='Available')
-            inactive = Locker.objects.filter(locker_id = single_locker.locker_id)
+            inactive = Locker.objects.filter(locker_id = single_locker.pk)
             inactive.update(locker_status_id=locker_available)
             single_locker.delete()
         return HttpResponseRedirect("renewals")

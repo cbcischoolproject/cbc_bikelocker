@@ -365,7 +365,7 @@ def create_cust_locker(sender, instance, created, **kwargs):
         locker_leased = Locker_Status.objects.get(locker_status_name='Leased')
         print("locker Status Correct:", locker_leased.pk)
         print("no PK", locker_leased)
-        locker = Locker.objects.get(locker_id=instance.locker_id.pk)
+        locker = Locker.objects.filter(locker_id=instance.locker_id.pk)
         print("Locker:", locker)
         print("Pre-SaveLocker status:", locker.locker_status_id.locker_status_name)
         print("Pre-Save Locker Status ID:", locker.locker_status_id.locker_status_id)
