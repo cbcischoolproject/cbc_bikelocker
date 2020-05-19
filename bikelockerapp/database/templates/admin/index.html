@@ -208,7 +208,7 @@
                             {% endfor %}
                             <thead>
                             <th scope="col" colspan="100%">
-                                 <a href="/admin/database/inquiry/"><h1><i class="fa fa-eye"></i></h1></a>
+                                 <a href="/admin/database/inquiry/"><i class="fa fa-eye"></i></a>
                             </td>
                             </thead>
                             {% else %}
@@ -263,6 +263,11 @@
                                 <td><a href="{{ item.get_admin_url }}">N/A</a></td>
                             {% endif %}
                             {% endfor %}
+                                                            <thead>
+                            <th scope="col" colspan="100%">
+                                 <a href="/admin/database/maintenance/"><i class="fa fa-eye"></i></a>
+                            </td>
+                            </thead>
                             {% else %}
                             <tr>
                 <td colspan="100%">
@@ -315,6 +320,11 @@
                             </tr>
 
                             {% endfor %}
+                                                        <thead>
+                            <th scope="col" colspan="100%">
+                                 <a href="/admin/database/cust_locker/"><i class="fa fa-eye"></i></a>
+                            </td>
+                            </thead>
                             {% else %}
                                         <tr>
                 <td colspan="100%">
