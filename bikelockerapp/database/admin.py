@@ -3,7 +3,8 @@ from django.contrib import admin
 # Register your models here.
 from .models import *
 
-class LocationA(admin.ModelAdmin):
+# These Admin subclasses add additional filtering features when viewing Models.
+class LocationAdmin(admin.ModelAdmin):
     list_per_page = 20
     list_display = ('location_name', 'location_zip')
     list_filter = ('location_name', 'location_zip',)
@@ -13,7 +14,7 @@ class MaintenanceAdmin(admin.ModelAdmin):
     list_display = ('main_type_id', 'location_id', 'maintenance_description', 'start_date', 'end_date')
     list_filter = ('main_type_id', 'location_id')
 
-class Location_Renewals_A(admin.ModelAdmin):
+class Location_Renewals_Admin(admin.ModelAdmin):
     list_per_page = 20
     list_display = ('location', 'date')
     list_filter = ('location', 'date',)
@@ -38,10 +39,10 @@ class InquiryAdmin(admin.ModelAdmin):
     list_display = ('customer', 'inquiry_date')
     list_filter = ('locations', 'inquiry_date')
 
-admin.site.register(Location, LocationA)
+admin.site.register(Location, LocationAdmin)
 admin.site.register(Waitlist)
 admin.site.register(Locker_Status)
-admin.site.register(Location_Renewals, Location_Renewals_A)
+admin.site.register(Location_Renewals, Location_Renewals_Admin)
 admin.site.register(Locker, LockerAdmin)
 admin.site.register(Key_Status)
 admin.site.register(Key)

@@ -170,14 +170,6 @@
         <form method="POST" action="" id="form1">{% csrf_token %}
             <div>
                 <div>
-
-                    <select name="users" multiple style="display: none">
-                        {% for item in emails %}
-                        <option value="{{ user.id }}" selected>{{ item.cust_id.cust_f_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
                     <p>{{ form.subject.errors }}</p>
                     <h2>Subject:</h2>
                     <p>{{ form.subject|add_class:'form-control' }}</p>
@@ -258,6 +250,8 @@
                 <li>Once the e-mail sends, they will be removed from the listing.</li>
                 <li><strong>Be sure to double check that the Google form URL is correct and the year listed is
                         correct.</strong>
+                </li>
+            </ol>
         </p>
         </li>
 
@@ -265,15 +259,6 @@
 
         <form method="POST" action="" id="form2">{% csrf_token %}
             <div>
-                <!--                <div><h2>To:</h2>-->
-                <!--                    {% for item in all_cust_lockers %}-->
-                <!--                    {% if item.is_2_weeks_past_due %}-->
-                <!--                    {% if item.not_contacted or item.contacted_once %}-->
-                <!--                    {{ item.cust_id }}-->
-                <!--                    {% endif %}-->
-                <!--                    {% endif %}-->
-                <!--                    {% endfor %}-->
-                <!--                </div>-->
                 <div>
                     <p>{{ form2.subject.errors }}</p>
                     <h2>Subject:</h2>

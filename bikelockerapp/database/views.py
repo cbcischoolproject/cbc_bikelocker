@@ -1,6 +1,6 @@
-import csv, io
-import random
+import csv, io, random
 from django.contrib.admin.views.decorators import staff_member_required
+from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
@@ -9,7 +9,6 @@ from .models import Customer, Inquiry, Location, Cust_Locker, Maintenance, Locke
     Locker_Status
 from .forms import CustomerForm, SendEmailForm, SendEmailFormAfter2Weeks
 from datetime import datetime, date, timedelta
-from django.conf import settings
 
 @staff_member_required
 # Admin Index View
@@ -30,10 +29,6 @@ def index(request):
     location_contains_query = request.GET.get('location')
     customer_contains_query = request.GET.get('customer')
 
-    render_cust = False
-    if location_contains_query or customer_contains_query:
-        render_cust = True
-
     # Filtering customer data (station, locker, inquiry) by location
     filter_by_location = False
     if location_contains_query != '' and location_contains_query is not None:
@@ -43,7 +38,7 @@ def index(request):
         all_maintenance = all_maintenance.filter(lockers__location_id__location_name__contains=location_contains_query)
         filter_by_location = True
 
-    # Filtering customer data by customer name
+    # Filtering customer data by Customer First Name, Last Name or E-mail
     filter_cust_locker_by_name = False
     filter_inquiry_by_name = False
     if customer_contains_query != '' and customer_contains_query is not None:
@@ -81,12 +76,15 @@ def index(request):
     if contains_locker_renewals == False:
         all_renewals = None
 
+
+    # Rendering 5 Waitlist Inquiry Results on Dashboard
     if(type(all_inquiry)) != set and filter_by_location == False:
         if not filter_inquiry_by_name and filter_cust_locker_by_name:
             all_inquiry = []
         else:
             all_inquiry = all_inquiry[:5]
 
+    # Rendering 5 Customer Locker Results on Dashboard
     if(type(all_cust_locker)) != set and filter_by_location == False:
         if not filter_cust_locker_by_name and filter_inquiry_by_name:
             all_cust_locker = []
@@ -96,16 +94,17 @@ def index(request):
             all_cust_locker = all_cust_locker[:5]
 
     # Returning values to to render onto template
-    render_dicts = {'render_cust': render_cust, 'all_renewals': all_renewals, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
+    render_dicts = {'all_renewals': all_renewals, 'all_stations': all_station, 'all_customer': all_customer, 'all_inquiries': all_inquiry, 'all_cust_lockers': all_cust_locker, 'locker_renewals': contains_locker_renewals, 'all_maintenance' : all_maintenance}
     return render(request, 'admin/index.html', render_dicts)
 
 @staff_member_required
 # Customer Upload Data View
 def customer_upload(request):
+
     # Import data template
     template = "customer_upload.html"
     prompt = {
-        'order': 'Order of CSV should be the following: cust_f_name, cust_l_name, cust_email, address, city, state, zip'
+        'Order': 'Order of CSV should be the following: cust_f_name, cust_l_name, cust_email, address, city, state, zip'
     }
 
     if request.method == "GET":
@@ -114,13 +113,14 @@ def customer_upload(request):
     csv_file = request.FILES['file']
 
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'This is not a CSV file')
+        messages.error(request, 'INCORRECT FILE FORMAT: This is not a CSV file!')
 
+    # Load and read data set
     data_set = csv_file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
     next(io_string)
 
-    # Scraping data from CSV file.
+    # Scraping data from CSV file
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
         not_created, created = Customer.objects.update_or_create(
             cust_f_name = column[0],
@@ -143,6 +143,7 @@ def customer_upload(request):
             locker_name = column[10],
             locker_status_id =  Locker_Status.objects.get(locker_status_name='Leased')
         )
+
         contract_date = column[13]
         contract_date_year = contract_date[-2:]
         contract_date = contract_date[:-2]
@@ -156,11 +157,12 @@ def customer_upload(request):
                 contract_date = datetime.strptime(contract_date, "%m/%d/%Y").date(),
                 description = column[11]
             )
+            
     context = {}
     return render(request, template, context)
 
 @staff_member_required
-# Customer Waitlist View
+# Customer Waitlist Application View
 def customer_waitlist(request):
     submitted = False
     if request.method == 'POST':
@@ -184,13 +186,19 @@ def customer_waitlist(request):
 # Admin E-Mail Renewals View
 @staff_member_required
 def send_email(request):
-    x = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_under_2_weeks_past_due and obj.not_contacted)]
-    yy = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_2_weeks_past_due and (obj.not_contacted or obj.contacted_once))]
+
+    # Querying data
+    emails_under_2_weeks = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_under_2_weeks_past_due and obj.not_contacted)]
+    emails_over_2_weeks = [obj.cust_id.cust_email for obj in Cust_Locker.objects.all() if (obj.is_2_weeks_past_due and (obj.not_contacted or obj.contacted_once))]
     all_stations = Location.objects.all()
     all_cust_locker = Cust_Locker.objects.all()
+
+
     if request.method == 'GET':
         form = SendEmailForm()
         form2 = SendEmailFormAfter2Weeks()
+
+    # Under 2 weeks Form
     if request.method == 'POST' and 'form1' in request.POST:
         form = SendEmailForm(request.POST or None)
         if form.is_valid():
@@ -198,41 +206,36 @@ def send_email(request):
             message = form.cleaned_data['message']
             from_email = settings.EMAIL_HOST_USER
             try:
-                send_mail(subject, message, from_email, x, fail_silently=False)
+                send_mail(subject, message, from_email, emails_under_2_weeks, fail_silently=False)
                 customers = [obj for obj in Cust_Locker.objects.all() if
                      (obj.is_under_2_weeks_past_due and obj.not_contacted)]
                 for customer in customers:
-                    print(customer)
-                    print(customer.contacted)
                     customer.contacted = 'Initial Contact'
                     customer.save()
-                    print(customer.contacted)
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return HttpResponseRedirect("send_email")
 
+    # Over 2 Weeks form
     if request.method == 'POST' and 'form2' in request.POST:
         print('test')
         form2 = SendEmailFormAfter2Weeks(request.POST)
         if form2.is_valid():
-            print('test2')
             subject = form2.cleaned_data['subject']
             message = form2.cleaned_data['message']
             from_email = settings.EMAIL_HOST_USER
             try:
-                send_mail(subject, message, from_email, yy, fail_silently=False)
+                send_mail(subject, message, from_email, emails_over_2_weeks, fail_silently=False)
                 customers = [obj for obj in Cust_Locker.objects.all() if
                              (obj.is_2_weeks_past_due and (obj.not_contacted or obj.contacted_once))]
                 for customer in customers:
-                    print(customer)
-                    print(customer.contacted)
                     customer.contacted = 'Second Contact'
                     customer.save()
-                    print(customer.contacted)
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return HttpResponseRedirect("send_email")
 
+    # Reset Customer Contacted
     if 'reset contacted' in request.POST:
         active_customers = Customer.objects.all().exclude(status_id__status_name__iexact="Inactive").exclude(status__isnull=True).exclude(status_id__status_name__iexact="Not Renewing")
         active_lockers = Cust_Locker.objects.all().filter(cust_id__in=active_customers)
@@ -276,27 +279,14 @@ def send_email(request):
         else:
             pass
 
-
-    # Total number of Lockers by Location Capacity
-    total_lockers = 0
-    for location in all_stations:
-        total_lockers += location.location_capacity
-
-    # Total number of Occupied Lockers
-    total_occupied = len(Cust_Locker.objects.all())
-
     return render(request, 'send_email.html',
                   {'all_stations': all_stations,
                    'form': form,
                    'form2': form2,
-                   'emails': x,
-                   '2_weeks': yy,
                    'all_cust_lockers': all_cust_locker,
                    'locker_renewals': contains_locker_renewals,
                    'lr_over_2': contains_lr_over_2_weeks,
-                   'lr_under_2': contains_lr_under_2_weeks,
-                   'total_lockers': total_lockers,
-                   'total_occupied': total_occupied})
+                   'lr_under_2': contains_lr_under_2_weeks})
 
 @staff_member_required
 def renewals(request):
