@@ -65,6 +65,7 @@
 {% if user.has_usable_password %}
 {% endif %}
 {% endblock %}
+{% if user.is_authenticated %}
 
 <div id="content">
         <!-- Add User -->
@@ -290,10 +291,8 @@
                             {% endif %}
                             </tbody>
                         </table>
-
-                          <table class="table table-bordered table-fixed">
+                        <table class="table table-bordered table-fixed">
                             <thead>
-
                                                 <tr><h1>Awaiting Renewal <a href="send_email"><i
                                 class="fa fa-envelope" aria-hidden="true"
                                 style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
