@@ -345,7 +345,9 @@
                         </tbody>
                         {% endif %}
 
-
+{% else %}
+<p>Please <a href="{% url 'admin:login' %}">Log In!</a></p>
+{% endif %}
 {% endblock %}
 
 
