@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from datetime import date, timedelta
 from django.db.models import signals
+from django.utils import timezone
 
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)

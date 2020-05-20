@@ -396,3 +396,4 @@ def renewals(request):
                    'total_percentage_responded': total_percentage_responded,
                    'total_lockers': total_lockers,
                    'total_occupied': total_occupied})
+
