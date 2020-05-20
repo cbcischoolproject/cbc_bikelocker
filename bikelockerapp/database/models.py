@@ -147,7 +147,7 @@ class Maintenance(models.Model):
     main_status_id = models.ForeignKey(Maintenance_Status, on_delete=models.CASCADE, default=1)
 
     class Meta:
-        ordering = ['-start_date']
+        ordering = ['start_date']
 
     def __str__(self):
         return str(self.start_date) + " " + self.location_id.location_name + " - " + self.main_type_id.main_type_name
@@ -351,7 +351,7 @@ class Inquiry(models.Model):
     class Meta:
         verbose_name = "Inquiry"
         verbose_name_plural = "Inquiries"
-        ordering = ['-inquiry_date']
+        ordering = ['inquiry_date']
 
     def get_admin_url(self):
         content_type = ContentType.objects.get_for_model(self.__class__)
