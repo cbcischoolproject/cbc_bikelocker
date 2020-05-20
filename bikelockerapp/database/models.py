@@ -3,8 +3,6 @@ from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from datetime import date, timedelta
 from django.db.models import signals
-from django.utils import timezone
-
 
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)
@@ -64,7 +62,6 @@ class Location(models.Model):
                 return "{}{}".format(top / bottom * 100, "%")
         return "{}{}".format(0, "%")
 
-
 class Location_Renewals(models.Model):
     location_renew_id = models.AutoField(primary_key=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
@@ -78,7 +75,6 @@ class Location_Renewals(models.Model):
         verbose_name_plural = "Locker Location Renewal Dates"
         ordering = ['location']
 
-
 class Locker_Status(models.Model):
     locker_status_id = models.AutoField(primary_key=True)
     locker_status_name = models.CharField('Locker Status Name', max_length=100)
@@ -89,7 +85,6 @@ class Locker_Status(models.Model):
     class Meta:
         verbose_name = "Locker Status"
         verbose_name_plural = "Locker Statuses"
-
 
 class Locker(models.Model):
     locker_id = models.AutoField(primary_key=True)
@@ -108,7 +103,6 @@ class Locker(models.Model):
     class Meta:
         ordering = ['location_id', 'locker_name']
 
-
 class Maintenance_Type(models.Model):
     main_type_id = models.AutoField('Maintenance Type', primary_key=True)
     main_type_name = models.CharField('Maintenance Type Name', max_length=100)
@@ -124,7 +118,6 @@ class Maintenance_Type(models.Model):
     def __unicode__(self):
         return self.main_type_name
 
-
 class Maintenance_Status(models.Model):
     main_status_id = models.AutoField(primary_key=True)
     main_status_name = models.CharField('Maintenance Status Name', max_length=100)
@@ -135,7 +128,6 @@ class Maintenance_Status(models.Model):
     class Meta:
         verbose_name = "Maintenance Status"
         verbose_name_plural = "Maintenance Statuses"
-
 
 class Maintenance(models.Model):
     SCOPE = (
@@ -163,7 +155,6 @@ class Maintenance(models.Model):
         content_type = ContentType.objects.get_for_model(self.__class__)
         return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
 
-
 class Status(models.Model):
     status_id = models.AutoField(primary_key=True)
     status_name = models.CharField('Status Name', max_length=100)
@@ -171,7 +162,6 @@ class Status(models.Model):
 
     def __str__(self):
         return self.status_name
-
 
 class Customer(models.Model):
     cust_id = models.AutoField(primary_key=True)
@@ -219,7 +209,6 @@ class Customer(models.Model):
     class Meta:
         ordering = ['cust_l_name']
 
-
 def delete_inactive_cust_locker(sender, instance, created, **kwargs):
     try:
         cust_locker = Cust_Locker.objects.get(cust_id=instance.cust_id)
@@ -229,9 +218,7 @@ def delete_inactive_cust_locker(sender, instance, created, **kwargs):
     except:
         inquiry = None
 
-
 signals.post_save.connect(receiver=delete_inactive_cust_locker, sender=Customer)
-
 
 class Cust_Status(models.Model):
     cust_status_id = models.AutoField(primary_key=True)
@@ -242,7 +229,6 @@ class Cust_Status(models.Model):
     class Meta:
         verbose_name = "Customer Status"
         verbose_name_plural = "Customer Statuses"
-
 
 class Cust_Locker(models.Model):
     cust_lock_id = models.AutoField(primary_key=True)
@@ -335,7 +321,6 @@ class Cust_Locker(models.Model):
 
     locker_cust_email = property(cust_email)
 
-
 def create_cust_locker(sender, instance, created, **kwargs):
     try:
         inquiry = Inquiry.objects.get(cust_id=instance.cust_id)
@@ -355,7 +340,6 @@ def create_cust_locker(sender, instance, created, **kwargs):
         inquiry = None
 
 signals.post_save.connect(receiver=create_cust_locker, sender=Cust_Locker)
-
 
 class Inquiry(models.Model):
     inquiry_id = models.AutoField(primary_key=True)
