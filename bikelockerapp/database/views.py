@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
 from django.contrib import messages
 from .models import Customer, Inquiry, Location, Cust_Locker, Maintenance, Locker, Status, \
     Locker_Status
-from .forms import CustomerForm, SendEmailForm, SendEmailFormAfter2Weeks
+from .forms import SendEmailForm, SendEmailFormAfter2Weeks
 from datetime import datetime, date, timedelta
 
 @staff_member_required
@@ -21,9 +21,6 @@ def index(request):
     all_cust_locker = Cust_Locker.objects.all()
     all_renewals = Cust_Locker.objects.all()
     all_maintenance = Maintenance.objects.all()
-
-    # Unqueired Flag
-    not_queried_data = True
 
     # Checking to see if user input in search field "contains" query
     location_contains_query = request.GET.get('location')

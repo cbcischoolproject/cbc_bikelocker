@@ -1,7 +1,6 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import *
+
 
 # These Admin subclasses add additional filtering features when viewing Models.
 class LocationAdmin(admin.ModelAdmin):
