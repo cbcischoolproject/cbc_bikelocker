@@ -51,6 +51,8 @@ admin.site.register(Locker, LockerAdmin)
 admin.site.register(Maintenance, MaintenanceAdmin)
 admin.site.register(Maintenance_Status)
 admin.site.register(Maintenance_Type)
+admin.site.register(Renewal)
+admin.site.register(Renewal_Response)
 admin.site.register(Status)
 admin.site.register(Waitlist)
 
