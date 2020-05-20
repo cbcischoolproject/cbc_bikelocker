@@ -40,6 +40,7 @@ class InquiryAdmin(admin.ModelAdmin):
     list_filter = ('locations', 'inquiry_date')
 
 admin.site.register(Location, LocationAdmin)
+admin.site.register(Waitlist)
 admin.site.register(Locker_Status)
 admin.site.register(Location_Renewals, Location_Renewals_Admin)
 admin.site.register(Locker, LockerAdmin)

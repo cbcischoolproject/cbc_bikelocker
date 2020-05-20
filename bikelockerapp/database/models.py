@@ -409,3 +409,15 @@ class Inquiry(models.Model):
     customer = property(my_property)
 
 
+class Waitlist(models.Model):
+    waitlist_id = models.AutoField(primary_key=True)
+    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    waitlist_date = models.DateField()
+    locations = models.ManyToManyField(Location)
+
+    class Meta:
+        verbose_name = "Waitlist"
+        verbose_name_plural = "Waitlists"
+
+    def __str__(self):
+        return str(self.cust_id)
