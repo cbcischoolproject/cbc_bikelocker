@@ -197,9 +197,6 @@ def send_email(request):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
             from_email = settings.EMAIL_HOST_USER
-            for email_address in x:
-                if email_address.split('@')[1] != '@cascade.org':
-                    x.remove(email_address)
             try:
                 send_mail(subject, message, from_email, x, fail_silently=False)
                 customers = [obj for obj in Cust_Locker.objects.all() if
