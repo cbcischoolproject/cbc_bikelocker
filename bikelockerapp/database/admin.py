@@ -50,7 +50,5 @@ admin.site.register(Cust_Status)
 admin.site.register(Maintenance_Status)
 admin.site.register(Maintenance, MaintenanceAdmin)
 admin.site.register(Cust_Locker, Cust_LockerAdmin)
-admin.site.register(Renewal)
-admin.site.register(Renewal_Response)
 admin.site.register(Inquiry, InquiryAdmin)
 

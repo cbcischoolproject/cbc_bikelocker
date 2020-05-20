@@ -357,27 +357,6 @@ def create_cust_locker(sender, instance, created, **kwargs):
 signals.post_save.connect(receiver=create_cust_locker, sender=Cust_Locker)
 
 
-class Renewal_Response(models.Model):
-    response_id = models.AutoField(primary_key=True)
-    response_description = models.CharField('Response Description', max_length=100)
-
-
-class Locker_Usage(models.Model):
-    locker_usage_id = models.AutoField(primary_key=True)
-    lu_description = models.CharField('Locker Usage', max_length=100)
-
-
-class Renewal(models.Model):
-    renewal_id = models.AutoField(primary_key=True)
-    cust_locker_id = models.ForeignKey(Cust_Locker, on_delete=models.CASCADE)
-    sent_date = models.DateField(blank=True)
-    response_1 = models.ForeignKey(Renewal_Response, on_delete=models.CASCADE, related_name='response1', blank=True)
-    sent_date_2 = models.DateField(blank=True)
-    response_2 = models.ForeignKey(Renewal_Response, on_delete=models.CASCADE, related_name='response2', blank=True)
-    phone_call_date = models.DateField('Phone Call Date', default=timezone.now(), blank=True)
-    response_3 = models.ForeignKey(Renewal_Response, on_delete=models.CASCADE, related_name='response3', blank=True)
-
-
 class Inquiry(models.Model):
     inquiry_id = models.AutoField(primary_key=True)
     cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
