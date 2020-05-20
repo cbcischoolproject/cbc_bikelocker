@@ -40,12 +40,9 @@ class InquiryAdmin(admin.ModelAdmin):
     list_filter = ('locations', 'inquiry_date')
 
 admin.site.register(Location, LocationAdmin)
-admin.site.register(Waitlist)
 admin.site.register(Locker_Status)
 admin.site.register(Location_Renewals, Location_Renewals_Admin)
 admin.site.register(Locker, LockerAdmin)
-admin.site.register(Key_Status)
-admin.site.register(Key)
 admin.site.register(Maintenance_Type)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Status)
@@ -56,6 +53,4 @@ admin.site.register(Cust_Locker, Cust_LockerAdmin)
 admin.site.register(Renewal)
 admin.site.register(Renewal_Response)
 admin.site.register(Inquiry, InquiryAdmin)
-admin.site.register(Staff)
-
 

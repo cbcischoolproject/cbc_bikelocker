@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta
 from django.db.models import signals
 from django.utils import timezone
 
@@ -107,31 +107,6 @@ class Locker(models.Model):
 
     class Meta:
         ordering = ['location_id', 'locker_name']
-
-class Key_Status(models.Model):
-    key_status_id = models.AutoField(primary_key=True)
-    key_status_name = models.CharField('Key Status Name', max_length=100)
-
-    def __str__(self):
-        return self.key_status_name
-
-    class Meta:
-        verbose_name = "Key Status"
-        verbose_name_plural = "Key Statuses"
-
-
-class Key(models.Model):
-    key_id = models.AutoField(primary_key=True)
-    locker_id = models.ForeignKey(Locker, on_delete=models.CASCADE)
-    key_name = models.CharField('Key Name', max_length=100)
-    key_status_id = models.ForeignKey(Key_Status, on_delete=models.CASCADE, default=1)
-
-    def __str__(self):
-        return str(self.locker_id) + " #" + self.key_name
-
-    def get_admin_url(self):
-        content_type = ContentType.objects.get_for_model(self.__class__)
-        return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
 
 
 class Maintenance_Type(models.Model):
@@ -425,82 +400,3 @@ class Inquiry(models.Model):
         return str(self.cust_id)
 
     customer = property(my_property)
-
-
-class Waitlist(models.Model):
-    waitlist_id = models.AutoField(primary_key=True)
-    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    waitlist_date = models.DateField()
-    locations = models.ManyToManyField(Location)
-
-    class Meta:
-        verbose_name = "Waitlist"
-        verbose_name_plural = "Waitlists"
-
-    def __str__(self):
-        return str(self.cust_id)
-
-# Unimplemented
-class Staff(models.Model):
-    staff_id = models.AutoField(primary_key=True)
-    staff_f_name = models.CharField('First Name', max_length=50)
-    staff_l_name = models.CharField('Last Name', max_length=50)
-    staff_email = models.EmailField('Email', max_length=100, default='')
-    staff_phone = models.CharField('Phone #1', max_length=50, default='')
-    staff_phone2 = models.CharField('Phone #2', max_length=50, default='', blank=True)
-    staff_address = models.CharField('Street Address', max_length=50, default='')
-    staff_city = models.CharField('City', max_length=50)
-    staff_state = models.CharField('State', max_length=50)
-    staff_zip = models.CharField('Zip Code', max_length=10)
-
-    def phone_number(self):
-        if self.staff_phone:
-            first = self.staff_phone[0:3]
-            second = self.staff_phone[3:6]
-            third = self.staff_phone[6:10]
-            return '(' + first + ')' + ' ' + second + '-' + third
-        else:
-            return 'N/A'
-
-    def phone_number2(self):
-        if self.staff_phone2:
-            first = self.staff_phone2[0:3]
-            second = self.staff_phone2[3:6]
-            third = self.staff_phone2[6:10]
-            return '(' + first + ')' + ' ' + second + '-' + third
-        else:
-            return 'N/A'
-
-    def __str__(self):
-        return self.staff_f_name + " " + self.staff_l_name
-
-    def get_admin_url(self):
-        content_type = ContentType.objects.get_for_model(self.__class__)
-        return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
-
-    class Meta:
-        ordering = ['staff_l_name']
-
-
-# Unimplemented
-class TimeStamp(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-# Unimplemented
-class Locker_Log(TimeStamp):
-    locker_log_id = models.AutoField(primary_key=True)
-    staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
-    action = models.CharField('Action', max_length=500, blank=True)
-    action_done = models.CharField('Action Done', max_length=500, blank=True)
-    next_step = models.CharField('Action', max_length=500, blank=True)
-    resolved = models.BooleanField('Resolved', default=False)
-
-    class Meta:
-        verbose_name = "Locker Log"
-        verbose_name_plural = "Locker Logs"

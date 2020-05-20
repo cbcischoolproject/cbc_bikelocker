@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
 from django.contrib import messages
-from .models import Customer, Inquiry, Location, Cust_Locker, Maintenance, Locker, Waitlist, Locker_Log, Status, \
+from .models import Customer, Inquiry, Location, Cust_Locker, Maintenance, Locker, Status, \
     Locker_Status
 from .forms import CustomerForm, SendEmailForm, SendEmailFormAfter2Weeks
 from datetime import datetime, date, timedelta
