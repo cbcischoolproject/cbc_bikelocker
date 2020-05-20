@@ -118,59 +118,6 @@
                         <br>
 
 
-
-                        <tr><h1>Awaiting Renewal <a href="send_email"><i
-                                class="fa fa-envelope" aria-hidden="true"
-                                style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
-
-                            <th scope="col" style="width: 9.09%">First</th>
-                            <th scope="col" style="width: 9.09%">Last</th>
-                            <th scope="col" style="width: 9.09%">Address</th>
-                            <th scope="col" style="width: 9.09%">Zip</th>
-                            <th scope="col" style="width: 9.09%">E-mail</th>
-                            <th scope="col" style="width: 9.09%">Cell #1</th>
-                            <th scope="col" style="width: 9.09%">Status</th>
-                            <th scope="col" style="width: 9.09%">Renewal</th>
-                            <th scope="col" style="width: 9.09%">Action</th>
-
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% if locker_renewals %}
-                        {% for item in all_renewals %}
-                        {% if item.is_past_due %}
-                        <tr>
-                            <td>{{ item.cust_id.cust_f_name }}</td>
-                            <td>{{ item.cust_id.cust_l_name }}</td>
-                            <td>{{ item.cust_id.cust_address }},
-                                {{ item.cust_id.cust_city }},
-                                {{ item.cust_id.cust_state }}</td>
-                            <td>{{ item.cust_id.cust_zip }}</td>
-                            <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
-                            <td>{{ item.cust_id.phone_number }}</td>
-                            <td>{{ item.locker_id.locker_status_id.locker_status_name }}</td>
-                            <td>{{ item.location_renewal.date }}</a></td>
-                            <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
-                                <a href="cust_locker/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
-                            </td>
-
-
-                        </tr>
-
-                        {% else %}
-                        {% endif %}
-                        {% endfor %}
-                        {% else %}
-                                   <tr>
-                <td colspan="100%">
-                    <em>There are currently no members up for renewal matching those terms.</em>
-                </td>
-            </tr>
-                        </tbody>
-                        {% endif %}
-
-
                         <table class="table table-bordered table-fixed">
                             <thead>
                             <tr><h1>Waitlist <a href="inquiry/add/"><i class="fa fa-plus" aria-hidden="true"
@@ -344,6 +291,56 @@
                             {% endif %}
                             </tbody>
                         </table>
+
+                                                <tr><h1>Awaiting Renewal <a href="send_email"><i
+                                class="fa fa-envelope" aria-hidden="true"
+                                style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
+
+                            <th scope="col" style="width: 9.09%">First</th>
+                            <th scope="col" style="width: 9.09%">Last</th>
+                            <th scope="col" style="width: 9.09%">E-mail</th>
+                            <th scope="col" style="width: 9.09%">Cell #1</th>
+                            <th scope="col" style="width: 9.09%">Status</th>
+                                                    <th scope="col" style="width: 9.09%">Locker Location</th>
+                                <th scope="col" style="width: 9.09%">Locker</th>
+                            <th scope="col" style="width: 9.09%">Renewal</th>
+                            <th scope="col" style="width: 9.09%">Action</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if locker_renewals %}
+                        {% for item in all_renewals %}
+                        {% if item.is_past_due %}
+                        <tr>
+                            <td>{{ item.cust_id.cust_f_name }}</td>
+                            <td>{{ item.cust_id.cust_l_name }}</td>
+                            <td style="word-break: break-all;"><a href="mailto: {{ item.cust_id.cust_email }}" target="_blank">{{item.cust_id.cust_email }}</a></td>
+                            <td>{{ item.cust_id.phone_number }}</td>
+                            <td>{{ item.locker_id.locker_status_id.locker_status_name }}</td>
+                                       <td style="word-break: break-all;"><a href="{{ item.get_admin_url }}">{{ item.locker_id.location_id.location_name }}</a>
+                                </td>
+                            <td><a href="{{ item.get_admin_url }}">#{{ item.locker_id.locker_name }}</a></td>
+                            <td>{{ item.location_renewal.date }}</a></td>
+                            <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
+                                <a href="cust_locker/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
+                            </td>
+
+
+                        </tr>
+
+                        {% else %}
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                                   <tr>
+                <td colspan="100%">
+                    <em>There are currently no members up for renewal matching those terms.</em>
+                </td>
+            </tr>
+                        </tbody>
+                        {% endif %}
 
 {% else %}
 <p>Please <a href="{% url 'admin:login' %}">Log In!</a></p>
