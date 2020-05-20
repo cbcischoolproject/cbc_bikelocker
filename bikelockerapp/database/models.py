@@ -5,6 +5,7 @@ from datetime import date, timedelta
 from django.db.models import signals
 from django.utils import timezone
 
+
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)
     location_name = models.CharField('Location Name', max_length=100)
@@ -63,6 +64,7 @@ class Location(models.Model):
                 return "{}{}".format(top / bottom * 100, "%")
         return "{}{}".format(0, "%")
 
+
 class Location_Renewals(models.Model):
     location_renew_id = models.AutoField(primary_key=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
@@ -76,6 +78,7 @@ class Location_Renewals(models.Model):
         verbose_name_plural = "Locker Location Renewal Dates"
         ordering = ['location']
 
+
 class Locker_Status(models.Model):
     locker_status_id = models.AutoField(primary_key=True)
     locker_status_name = models.CharField('Locker Status Name', max_length=100)
@@ -86,6 +89,7 @@ class Locker_Status(models.Model):
     class Meta:
         verbose_name = "Locker Status"
         verbose_name_plural = "Locker Statuses"
+
 
 class Locker(models.Model):
     locker_id = models.AutoField(primary_key=True)
@@ -104,6 +108,7 @@ class Locker(models.Model):
     class Meta:
         ordering = ['location_id', 'locker_name']
 
+
 class Maintenance_Type(models.Model):
     main_type_id = models.AutoField('Maintenance Type', primary_key=True)
     main_type_name = models.CharField('Maintenance Type Name', max_length=100)
@@ -119,6 +124,7 @@ class Maintenance_Type(models.Model):
     def __unicode__(self):
         return self.main_type_name
 
+
 class Maintenance_Status(models.Model):
     main_status_id = models.AutoField(primary_key=True)
     main_status_name = models.CharField('Maintenance Status Name', max_length=100)
@@ -129,6 +135,7 @@ class Maintenance_Status(models.Model):
     class Meta:
         verbose_name = "Maintenance Status"
         verbose_name_plural = "Maintenance Statuses"
+
 
 class Maintenance(models.Model):
     SCOPE = (
@@ -155,6 +162,7 @@ class Maintenance(models.Model):
     def get_admin_url(self):
         content_type = ContentType.objects.get_for_model(self.__class__)
         return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
+
 
 class Status(models.Model):
     status_id = models.AutoField(primary_key=True)

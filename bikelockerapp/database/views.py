@@ -161,6 +161,28 @@ def customer_upload(request):
     context = {}
     return render(request, template, context)
 
+@staff_member_required
+# Customer Waitlist Application View
+def customer_waitlist(request):
+    submitted = False
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            customer = form.save()
+            identity = customer.pk
+            locs = form.cleaned_data['locations']
+            obj = Customer.objects.get(cust_id=identity)
+            waitlist = Waitlist.objects.create(
+                cust_id = Customer.objects.get(cust_id = obj.pk),
+                waitlist_date = datetime.now())
+            waitlist.locations.add(*locs)
+            return HttpResponseRedirect('/customer_inquiry/?submitted=True')
+    else:
+        form = CustomerForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'customer_inquiry.html', {'form': form, 'submitted': submitted})
+
 # Admin E-Mail Renewals View
 @staff_member_required
 def send_email(request):
@@ -397,3 +419,24 @@ def renewals(request):
                    'total_lockers': total_lockers,
                    'total_occupied': total_occupied})
 
+# @staff_member_required
+# # TBD: DELETE IF UNIMPLEMENTED
+# # def log(request):
+# #     all_logs = Locker_Log.objects.all()
+# #     return render(request, 'log.html',
+# #                   {'all_logs': all_logs})
+
+# def renewals_form(request):
+#     submitted = False
+#     if request.method == 'POST':
+#         form = RenewalsForm(request.POST)
+#         if form.is_valid():
+#             product = form.save()
+#             return HttpResponseRedirect('/admin')
+#         else:
+#             print(form.errors)
+#     else:
+#         form = RenewalsForm()
+#         if request.method == 'GET':
+#             submitted = True
+#     return render(request, 'renewals_form.html', {'form': form})
