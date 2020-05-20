@@ -64,7 +64,6 @@ class Location(models.Model):
                 return "{}{}".format(top / bottom * 100, "%")
         return "{}{}".format(0, "%")
 
-
 class Location_Renewals(models.Model):
     location_renew_id = models.AutoField(primary_key=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, blank=True, null=True)
@@ -78,7 +77,6 @@ class Location_Renewals(models.Model):
         verbose_name_plural = "Locker Location Renewal Dates"
         ordering = ['location']
 
-
 class Locker_Status(models.Model):
     locker_status_id = models.AutoField(primary_key=True)
     locker_status_name = models.CharField('Locker Status Name', max_length=100)
@@ -89,7 +87,6 @@ class Locker_Status(models.Model):
     class Meta:
         verbose_name = "Locker Status"
         verbose_name_plural = "Locker Statuses"
-
 
 class Locker(models.Model):
     locker_id = models.AutoField(primary_key=True)
@@ -108,17 +105,6 @@ class Locker(models.Model):
     class Meta:
         ordering = ['location_id', 'locker_name']
 
-class Key_Status(models.Model):
-    key_status_id = models.AutoField(primary_key=True)
-    key_status_name = models.CharField('Key Status Name', max_length=100)
-
-    def __str__(self):
-        return self.key_status_name
-
-    class Meta:
-        verbose_name = "Key Status"
-        verbose_name_plural = "Key Statuses"
-
 class Maintenance_Type(models.Model):
     main_type_id = models.AutoField('Maintenance Type', primary_key=True)
     main_type_name = models.CharField('Maintenance Type Name', max_length=100)
@@ -134,7 +120,6 @@ class Maintenance_Type(models.Model):
     def __unicode__(self):
         return self.main_type_name
 
-
 class Maintenance_Status(models.Model):
     main_status_id = models.AutoField(primary_key=True)
     main_status_name = models.CharField('Maintenance Status Name', max_length=100)
@@ -145,7 +130,6 @@ class Maintenance_Status(models.Model):
     class Meta:
         verbose_name = "Maintenance Status"
         verbose_name_plural = "Maintenance Statuses"
-
 
 class Maintenance(models.Model):
     SCOPE = (
@@ -163,13 +147,15 @@ class Maintenance(models.Model):
     end_date = models.DateField(default=None, blank=True, null=True)
     main_status_id = models.ForeignKey(Maintenance_Status, on_delete=models.CASCADE, default=1)
 
+    class Meta:
+        ordering = ['start_date']
+
     def __str__(self):
         return str(self.start_date) + " " + self.location_id.location_name + " - " + self.main_type_id.main_type_name
 
     def get_admin_url(self):
         content_type = ContentType.objects.get_for_model(self.__class__)
         return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
-
 
 class Status(models.Model):
     status_id = models.AutoField(primary_key=True)
@@ -178,7 +164,6 @@ class Status(models.Model):
 
     def __str__(self):
         return self.status_name
-
 
 class Customer(models.Model):
     cust_id = models.AutoField(primary_key=True)
@@ -193,6 +178,9 @@ class Customer(models.Model):
     cust_zip = models.CharField('Zip Code', max_length=10)
     renewed = Status.objects.filter(status_name__iexact="Active")
     status = models.ForeignKey(Status, on_delete=models.CASCADE, default=1)
+
+    class Meta:
+        ordering = ['cust_l_name']
 
     def not_responded(self):
         if self.status == Status.objects.get(pk=2):
@@ -223,10 +211,6 @@ class Customer(models.Model):
         content_type = ContentType.objects.get_for_model(self.__class__)
         return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
 
-    class Meta:
-        ordering = ['cust_l_name']
-
-
 def delete_inactive_cust_locker(sender, instance, created, **kwargs):
     try:
         cust_locker = Cust_Locker.objects.get(cust_id=instance.cust_id)
@@ -236,9 +220,7 @@ def delete_inactive_cust_locker(sender, instance, created, **kwargs):
     except:
         inquiry = None
 
-
 signals.post_save.connect(receiver=delete_inactive_cust_locker, sender=Customer)
-
 
 class Cust_Status(models.Model):
     cust_status_id = models.AutoField(primary_key=True)
@@ -249,7 +231,6 @@ class Cust_Status(models.Model):
     class Meta:
         verbose_name = "Customer Status"
         verbose_name_plural = "Customer Statuses"
-
 
 class Cust_Locker(models.Model):
     cust_lock_id = models.AutoField(primary_key=True)
@@ -266,6 +247,10 @@ class Cust_Locker(models.Model):
     contacted = models.CharField('Contacted', choices=CONTACT_CHOICES, max_length=50, default='No')
     # Couldn't drop this field due to SQLITE3. Now used for renew_dates is now used for locker notes.
     renew_date = models.TextField("Notes", null=True, blank=True, default="")
+
+    class Meta:
+        verbose_name = "Customer Locker"
+        verbose_name_plural = "Customer Lockers"
 
     @property
     def natural_key(self):
@@ -326,10 +311,6 @@ class Cust_Locker(models.Model):
         else:
             return False
 
-    class Meta:
-        verbose_name = "Customer Locker"
-        verbose_name_plural = "Customer Lockers"
-
     def get_admin_url(self):
         content_type = ContentType.objects.get_for_model(self.__class__)
         return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
@@ -341,7 +322,6 @@ class Cust_Locker(models.Model):
         return self.cust_id.cust_email
 
     locker_cust_email = property(cust_email)
-
 
 def create_cust_locker(sender, instance, created, **kwargs):
     try:
@@ -362,28 +342,6 @@ def create_cust_locker(sender, instance, created, **kwargs):
         inquiry = None
 
 signals.post_save.connect(receiver=create_cust_locker, sender=Cust_Locker)
-
-
-class Renewal_Response(models.Model):
-    response_id = models.AutoField(primary_key=True)
-    response_description = models.CharField('Response Description', max_length=100)
-
-
-class Locker_Usage(models.Model):
-    locker_usage_id = models.AutoField(primary_key=True)
-    lu_description = models.CharField('Locker Usage', max_length=100)
-
-
-class Renewal(models.Model):
-    renewal_id = models.AutoField(primary_key=True)
-    cust_locker_id = models.ForeignKey(Cust_Locker, on_delete=models.CASCADE)
-    sent_date = models.DateField(blank=True)
-    response_1 = models.ForeignKey(Renewal_Response, on_delete=models.CASCADE, related_name='response1', blank=True)
-    sent_date_2 = models.DateField(blank=True)
-    response_2 = models.ForeignKey(Renewal_Response, on_delete=models.CASCADE, related_name='response2', blank=True)
-    phone_call_date = models.DateField('Phone Call Date', default=timezone.now(), blank=True)
-    response_3 = models.ForeignKey(Renewal_Response, on_delete=models.CASCADE, related_name='response3', blank=True)
-
 
 class Inquiry(models.Model):
     inquiry_id = models.AutoField(primary_key=True)
@@ -407,82 +365,3 @@ class Inquiry(models.Model):
         return str(self.cust_id)
 
     customer = property(my_property)
-
-
-class Waitlist(models.Model):
-    waitlist_id = models.AutoField(primary_key=True)
-    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    waitlist_date = models.DateField()
-    locations = models.ManyToManyField(Location)
-
-    class Meta:
-        verbose_name = "Waitlist"
-        verbose_name_plural = "Waitlists"
-
-    def __str__(self):
-        return str(self.cust_id)
-
-# Unimplemented
-class Staff(models.Model):
-    staff_id = models.AutoField(primary_key=True)
-    staff_f_name = models.CharField('First Name', max_length=50)
-    staff_l_name = models.CharField('Last Name', max_length=50)
-    staff_email = models.EmailField('Email', max_length=100, default='')
-    staff_phone = models.CharField('Phone #1', max_length=50, default='')
-    staff_phone2 = models.CharField('Phone #2', max_length=50, default='', blank=True)
-    staff_address = models.CharField('Street Address', max_length=50, default='')
-    staff_city = models.CharField('City', max_length=50)
-    staff_state = models.CharField('State', max_length=50)
-    staff_zip = models.CharField('Zip Code', max_length=10)
-
-    def phone_number(self):
-        if self.staff_phone:
-            first = self.staff_phone[0:3]
-            second = self.staff_phone[3:6]
-            third = self.staff_phone[6:10]
-            return '(' + first + ')' + ' ' + second + '-' + third
-        else:
-            return 'N/A'
-
-    def phone_number2(self):
-        if self.staff_phone2:
-            first = self.staff_phone2[0:3]
-            second = self.staff_phone2[3:6]
-            third = self.staff_phone2[6:10]
-            return '(' + first + ')' + ' ' + second + '-' + third
-        else:
-            return 'N/A'
-
-    def __str__(self):
-        return self.staff_f_name + " " + self.staff_l_name
-
-    def get_admin_url(self):
-        content_type = ContentType.objects.get_for_model(self.__class__)
-        return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
-
-    class Meta:
-        ordering = ['staff_l_name']
-
-
-# Unimplemented
-class TimeStamp(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-# Unimplemented
-class Locker_Log(TimeStamp):
-    locker_log_id = models.AutoField(primary_key=True)
-    staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
-    action = models.CharField('Action', max_length=500, blank=True)
-    action_done = models.CharField('Action Done', max_length=500, blank=True)
-    next_step = models.CharField('Action', max_length=500, blank=True)
-    resolved = models.BooleanField('Resolved', default=False)
-
-    class Meta:
-        verbose_name = "Locker Log"
-        verbose_name_plural = "Locker Logs"
