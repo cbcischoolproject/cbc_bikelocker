@@ -119,21 +119,6 @@ class Key_Status(models.Model):
         verbose_name = "Key Status"
         verbose_name_plural = "Key Statuses"
 
-
-class Key(models.Model):
-    key_id = models.AutoField(primary_key=True)
-    locker_id = models.ForeignKey(Locker, on_delete=models.CASCADE)
-    key_name = models.CharField('Key Name', max_length=100)
-    key_status_id = models.ForeignKey(Key_Status, on_delete=models.CASCADE, default=1)
-
-    def __str__(self):
-        return str(self.locker_id) + " #" + self.key_name
-
-    def get_admin_url(self):
-        content_type = ContentType.objects.get_for_model(self.__class__)
-        return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
-
-
 class Maintenance_Type(models.Model):
     main_type_id = models.AutoField('Maintenance Type', primary_key=True)
     main_type_name = models.CharField('Maintenance Type Name', max_length=100)
