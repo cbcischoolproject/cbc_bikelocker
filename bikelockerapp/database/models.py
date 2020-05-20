@@ -119,6 +119,21 @@ class Key_Status(models.Model):
         verbose_name = "Key Status"
         verbose_name_plural = "Key Statuses"
 
+
+class Key(models.Model):
+    key_id = models.AutoField(primary_key=True)
+    locker_id = models.ForeignKey(Locker, on_delete=models.CASCADE)
+    key_name = models.CharField('Key Name', max_length=100)
+    key_status_id = models.ForeignKey(Key_Status, on_delete=models.CASCADE, default=1)
+
+    def __str__(self):
+        return str(self.locker_id) + " #" + self.key_name
+
+    def get_admin_url(self):
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        return reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model), args=(self.pk,))
+
+
 class Maintenance_Type(models.Model):
     main_type_id = models.AutoField('Maintenance Type', primary_key=True)
     main_type_name = models.CharField('Maintenance Type Name', max_length=100)
@@ -462,3 +477,27 @@ class Staff(models.Model):
 
     class Meta:
         ordering = ['staff_l_name']
+
+
+# Unimplemented
+class TimeStamp(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+# Unimplemented
+class Locker_Log(TimeStamp):
+    locker_log_id = models.AutoField(primary_key=True)
+    staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    cust_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    action = models.CharField('Action', max_length=500, blank=True)
+    action_done = models.CharField('Action Done', max_length=500, blank=True)
+    next_step = models.CharField('Action', max_length=500, blank=True)
+    resolved = models.BooleanField('Resolved', default=False)
+
+    class Meta:
+        verbose_name = "Locker Log"
+        verbose_name_plural = "Locker Logs"
