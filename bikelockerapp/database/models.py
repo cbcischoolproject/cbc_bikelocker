@@ -178,6 +178,9 @@ class Maintenance(models.Model):
     end_date = models.DateField(default=None, blank=True, null=True)
     main_status_id = models.ForeignKey(Maintenance_Status, on_delete=models.CASCADE, default=1)
 
+    class Meta:
+        ordering = ['start_date']
+
     def __str__(self):
         return str(self.start_date) + " " + self.location_id.location_name + " - " + self.main_type_id.main_type_name
 
