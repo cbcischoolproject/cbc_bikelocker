@@ -172,8 +172,9 @@
 
                         <table class="table table-bordered table-fixed">
                             <thead>
-                            <tr><h1>Maintenances <a href="maintenance/add/"><i class="fa fa-plus" aria-hidden="true"
-                                                                        style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
+                            <tr><h1>Maintenances <a href="maintenance/add/">
+                                <i class="fa fa-plus" aria-hidden="true"
+                                   style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
                                 <th scope="col">Location</th>
                                 <th scope="col">Maintenance Type</th>
                                 <th scope="col">Maintenance Scope</th>
@@ -199,7 +200,7 @@
                                 <td><a href="{{ item.get_admin_url }}"><i class="fa fa-edit"></i></a>
                                     <a href="maintenance/{{ item.pk }}/delete"><i class="fa fa-trash"></i></a>
                                 </td>
-                                
+
                             {% else %}
                                 <td><a href="{{ item.get_admin_url }}">N/A</a></td>
                                 <td><a href="{{ item.get_admin_url }}">N/A</a></td>
@@ -233,7 +234,7 @@
                             </tbody>
                         </table>
 
-                                               <table class="table table-bordered table-fixed">
+                        <table class="table table-bordered table-fixed">
                             <thead>
                             <tr><h1>Current Members <a href="cust_locker/add/"><i class="fa fa-plus" aria-hidden="true"
                                                                                   style=" vertical-align: middle; font-size: 1rem;"></i></a>
@@ -247,7 +248,6 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">Locker Location</th>
                                 <th scope="col">Locker</th>
-
                                 <th scope="col" style="width: 9.09%">Action</th>
                             </tr>
                             </thead>
@@ -291,9 +291,12 @@
                             {% endif %}
                             </tbody>
                         </table>
+
+
+
                         <table class="table table-bordered table-fixed">
                             <thead>
-                                                <tr><h1>Awaiting Renewal <a href="send_email"><i
+                            <tr><h1>Awaiting Renewal <a href="send_email"><i
                                 class="fa fa-envelope" aria-hidden="true"
                                 style=" vertical-align: middle; font-size: 1rem;"></i></a></h1>
 
@@ -306,8 +309,6 @@
                                 <th scope="col" style="width: 9.09%">Locker</th>
                             <th scope="col" style="width: 9.09%">Renewal</th>
                             <th scope="col" style="width: 9.09%">Action</th>
-
-
                         </tr>
                         </thead>
                         <tbody>
@@ -340,8 +341,9 @@
                     <em>There are currently no members up for renewal matching those terms.</em>
                 </td>
             </tr>
-                        </tbody>
                         {% endif %}
+                        </tbody>
+                        </table>
 
 {% else %}
 <p>Please <a href="{% url 'admin:login' %}">Log In!</a></p>
